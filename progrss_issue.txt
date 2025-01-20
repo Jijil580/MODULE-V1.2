@@ -1,0 +1,18 @@
+///jijil///
+
+
+date:17/12025
+status: 
+Gurux is sucessfully connected with meter
+
+to do
+1.debugging reset
+2.debugging reading data from meter 
+
+date:20/1/2025
+
+ststus :
+clock read worked
+
+to do;
+data download
