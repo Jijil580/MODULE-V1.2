@@ -203,6 +203,13 @@
       <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
       <ParentItem>3baca520-de76-4fe4-9d81-012b40c27685</ParentItem>
     </Instance>
+    <Instance Guid="8dd530e6-70d1-4e7b-81af-8f355f9ac080">
+      <Name>csq.c</Name>
+      <Type>File</Type>
+      <RelativePath>csq.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>3baca520-de76-4fe4-9d81-012b40c27685</ParentItem>
+    </Instance>
   </Class>
   <Class Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
     <Instance Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
@@ -286,7 +293,9 @@
       <SourceItemType14>CSource</SourceItemType14>
       <SourceItemGuid15>13d91be7-4f65-437d-8226-84a6432a1b34</SourceItemGuid15>
       <SourceItemType15>CSource</SourceItemType15>
-      <SourceItemCount>16</SourceItemCount>
+      <SourceItemGuid16>8dd530e6-70d1-4e7b-81af-8f355f9ac080</SourceItemGuid16>
+      <SourceItemType16>CSource</SourceItemType16>
+      <SourceItemCount>17</SourceItemCount>
       <LastDeviceChangedCounter>1</LastDeviceChangedCounter>
       <LastDeviceNameOnPG>R5F11TLG</LastDeviceNameOnPG>
       <LastDeviceChangedCounterOnPG>1</LastDeviceChangedCounterOnPG>
@@ -1181,6 +1190,10 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
       <ItemAddTime>638727295461818574</ItemAddTime>
       <ItemAddTimeCount>0</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="8dd530e6-70d1-4e7b-81af-8f355f9ac080">
+      <ItemAddTime>638730721312305522</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="0b7e78c3-aadd-45ee-9f9d-ffac6141eeb2">
       <TimeTagModified-SourceItem0--0>-8584723784699746964</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -1248,6 +1261,10 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
       <SourceItem15-IsLockedByUser>False</SourceItem15-IsLockedByUser>
       <SourceItem15-BuildingTarget-0>True</SourceItem15-BuildingTarget-0>
       <SourceItem15-IndividualCompileOption-0>True</SourceItem15-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem16--0>-8584641513542470286</TimeTagModified-SourceItem16--0>
+      <SourceItem16-IsLockedByUser>False</SourceItem16-IsLockedByUser>
+      <SourceItem16-BuildingTarget-0>True</SourceItem16-BuildingTarget-0>
+      <SourceItem16-IndividualCompileOption-0>False</SourceItem16-IndividualCompileOption-0>
     </Instance>
     <Instance Guid="e9e49f52-479a-4329-b17f-80855a0c07d3">
       <TimeTagModified-SourceItem15--0>-8584652770656192181</TimeTagModified-SourceItem15--0>
@@ -1933,9 +1950,9 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
     &lt;/DataElement&gt;
     &lt;DataElement key="pior25_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior01_macroname" value=""&gt;
+    &lt;DataElement key="pior07_pior00_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior23" value="0"&gt;
+    &lt;DataElement key="pior01_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -1981,7 +1998,7 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior07_pior00_macroname" value=""&gt;
+    &lt;DataElement key="pior23" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior03" value="0"&gt;
     &lt;/DataElement&gt;

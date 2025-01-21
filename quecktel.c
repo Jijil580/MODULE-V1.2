@@ -1,56 +1,57 @@
 #include "quecktel.h"
 
  const char *at_commands[] = {
-    "ATI\r\n",
+    "ATI\r\n",                                         //:0
     
-    "ATE0\r\n",
+    "ATE0\r\n",                                        //:1
     
-    "AT+QSCLKEX=0\r\n",
+    "AT+QSCLKEX=0\r\n",                                //:2
     
-    "AT+CEDRXS=0,4\r\n",
+    "AT+CEDRXS=0,4\r\n",                               //:3
     
-    "AT+CEDRXS?\r",
+    "AT+CEDRXS?\r",                                    //:4
     
-    "AT+QCFG=\"NWSCANMODE\",0\r",
+    "AT+QCFG=\"NWSCANMODE\",0\r",                      //:5
     
-    "AT+QICSGP=1,3,\"tpplus.smwbiot\",\"\",\"\"\r",
+    "AT+QICSGP=1,3,\"tpplus.smwbiot\",\"\",\"\"\r",    //:6
     
-    "AT+CPIN?\r",
+    "AT+CPIN?\r",                                      //:7
     
-    "AT+EGMR=0,7\r",
+    "AT+EGMR=0,7\r",                                   //:8
     
-    "AT+CCID\r",
+    "AT+CCID\r",                                       //:9
     
-    "AT+CREG?\r",
+    "AT+CREG?\r",                                      //:10
     
-    "AT+CREG=0\r",
+    "AT+CREG=0\r",                                     //:11
     
-    "AT+CGREG=0\r",
+    "AT+CGREG=0\r",                                    //:12
     
-    "AT+COPS?\r",
+    "AT+COPS?\r",                                      //:13
     
-    "AT+CSQ\r",
+    "AT+CSQ\r",                                        //:14
     
-    "AT+QICFG=\"passiveclosed\",1\r",
+    "AT+QICFG=\"passiveclosed\",1\r",                  //:15
     
-    "AT+QICFG=\"tcp/keepalive\"\r",
+    "AT+QICFG=\"tcp/keepalive\"\r",                    //:16
     
-    "AT+QIACT=1\r",
+    "AT+QIACT=1\r",                                    //:17
     
-    "AT+QIACT?\r",
+    "AT+QIACT?\r",                                     //:18
     
-    "AT+QLTS=2\r",
+    "AT+QLTS=2\r",                                     //:19
     
-    "AT+QLTS=2\r",
+    "AT+QLTS=2\r",                                     //:20
     
-    "AT+QIOPEN=1,1,\"TCP LISTENER\",\"::1\",0,4059,1,1\r"
+    "AT+QIOPEN=1,1,\"TCP LISTENER\",\"::1\",0,4059,1,1\r"//:21
   
 };
 
-const char *COMMON_RESPONSE[] = {
-   "\r\nQuectel\r\nEC200U\r\nRevision: EC200UCNAAR03A09M08\r\n\r\nOK\r\n",
-    "\r\nOK\r\n",
-    "\r\nERROR\r\n"
+const char *COMMON_RESPONSE[] =
+{
+   	"\r\nQuectel\r\nEC200U\r\nRevision: EC200UCNAAR03A09M08\r\n\r\nOK\r\n",
+    	"\r\nOK\r\n",
+    	"\r\nERROR\r\n"
 };
 
 
@@ -82,12 +83,7 @@ const char *NETWORK_OPERATOR_STSTUS[]=
 
 	
 };
-const char *SIGNAL_QUALITY[]=
-{
-	"\r\n+CSQ: 22,99\\r\n\r\nOK\r\n"
-	
-	
-};
+
 //const char *PDP_CONTEXT_STATUS[]=
 //{
 //	"\r\n+QIACT: 1,1,2,\"2401:4900:9831:FD7B::2\"\r\n\r\nOK\r\n"
@@ -98,7 +94,8 @@ const char *SIGNAL_QUALITY[]=
 ////};
 const char *NETWORK_REGI_STATUS[]=
 {
-	"\r\n+CREG: 0,0\r\n\r\nOK\r\n",
+	"\r\n+CREG: 0,0\r\n\r\nOK\r\n",////- <CR><LF>+CREG: 0,1<CR><LF><CR><LF>OK<CR><LF>
+
 	"\r\n+CREG: 0,1\r\n\r\nOK\r\n",
 	"\r\n+CREG: 0,2\r\n\r\nOK\r\n",
 	"\r\n+CREG: 0,3\r\n\r\nOK\r\n",
@@ -117,7 +114,7 @@ const char *NETWORK_REGI_STATUS[]=
 	"\r\n+CREG: 2,2\r\n\r\nOK\r\n",
 	"\r\n+CREG: 2,3\r\n\r\nOK\r\n",
 	"\r\n+CREG: 2,4\r\n\r\nOK\r\n",
-	"\r\n+CREG: 2,5\r\n\r\nOK\r\n"
+	"\r\n+CREG: 2,5\r\n\r\nOK\r\n"  
 
 	
 };

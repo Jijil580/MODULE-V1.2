@@ -355,7 +355,7 @@ void split_and_store(void)
 
 uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
 {
-	//RX0_BUFFER[RX0_BUFFER_COUNT]='\0';
+	
 	
 	switch (AT_COMMAND_COUNT)
 	{
@@ -411,12 +411,73 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
 		}
 		case 8:
 		{
-			COMPARE_MATCH1= Check_Common_Response(RESPONSE);
+			COMPARE_MATCH1=CHECK_OK_RESPONSE(RESPONSE);
 			 break;
 		}
 		case 9:
 		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		 
+		 case 10:
+		{
+			COMPARE_MATCH1= Ceck_Network_Reg_status(RESPONSE);
+			 break;
+		}
+		 case 11:
+		{
 			COMPARE_MATCH1= Check_Common_Response(RESPONSE);
+			 break;
+		}
+		 case 12:
+		{
+			COMPARE_MATCH1= Check_Common_Response(RESPONSE);
+			 break;
+		}
+	         case 13:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 14:
+		{
+			COMPARE_MATCH1= Check_Sigmal_Qulity(RESPONSE);
+			 break;
+		}
+		case 15:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 16:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 17:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 18:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 19:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 20:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 21:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
 			 break;
 		}
 	
@@ -428,7 +489,6 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
     return COMPARE_MATCH1; // No match found
 
 }
-
 
 
 

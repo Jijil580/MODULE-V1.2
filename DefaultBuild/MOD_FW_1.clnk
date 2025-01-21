@@ -14,6 +14,7 @@
 -Input=DefaultBuild\r_cg_wdt_user.obj
 -Input=DefaultBuild\quecktel.obj
 -Input=DefaultBuild\quecktel_users.obj
+-Input=DefaultBuild\csq.obj
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF
 -DEBug
