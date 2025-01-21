@@ -1,13 +1,70 @@
 QualityReport
-20 January 2025 15:29:50
+21 January 2025 15:11:06
 
 ------ Start build(MOD_FW_1, DefaultBuild) ------
------- Build ended(Error:0, Warning:0)(MOD_FW_1, DefaultBuild) ------
+C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\Bin\ccrl.exe cg_src\r_cg_main.c -cpu=S3 -o DefaultBuild\r_cg_main.obj "-dev=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF" -g -g_line -I cg_src -I . -c -msg_lang=english
+C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\Bin\ccrl.exe quecktel.c -cpu=S3 -o DefaultBuild\quecktel.obj "-dev=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF" -g -g_line -I cg_src -I . -c -msg_lang=english
+C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\Bin\ccrl.exe quecktel_users.c -cpu=S3 -o DefaultBuild\quecktel_users.obj "-dev=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF" -g -g_line -I cg_src -I . -c -msg_lang=english
+cg_src\r_cg_main.c(200):W0520167:Argument of type "uint8_t __near *" is incompatible with parameter of type "const char __near *__near"
+cg_src\r_cg_main.c(262):W0520167:Argument of type "const char *__near" is incompatible with parameter of type "uint8_t *const __near"
+cg_src\r_cg_main.c(304):W0520167:Argument of type "char __near *" is incompatible with parameter of type "uint8_t *const __near"
+quecktel_users.c(167):W0520940:Missing return statement at end of non-void function "Check_Operator_Status"
+C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\Bin\rlink.exe -subcommand=DefaultBuild\MOD_FW_1.clnk
+RAMDATA SECTION:  00000a26 Byte(s)
+ROMDATA SECTION:  00000c47 Byte(s)
+PROGRAM SECTION:  0000345a Byte(s)
+Renesas Optimizing Linker Completed
+------ Build ended(Error:0, Warning:4)(MOD_FW_1, DefaultBuild) ------
+
+--- CommandFile 1 ---
+DefaultBuild\MOD_FW_1.clnk :
+-Input=DefaultBuild\cstart.obj
+-Input=DefaultBuild\stkinit.obj
+-Input=DefaultBuild\r_cg_main.obj
+-Input=DefaultBuild\r_cg_systeminit.obj
+-Input=DefaultBuild\r_cg_cgc.obj
+-Input=DefaultBuild\r_cg_cgc_user.obj
+-Input=DefaultBuild\r_cg_port.obj
+-Input=DefaultBuild\r_cg_port_user.obj
+-Input=DefaultBuild\r_cg_tau.obj
+-Input=DefaultBuild\r_cg_tau_user.obj
+-Input=DefaultBuild\r_cg_sau.obj
+-Input=DefaultBuild\r_cg_sau_user.obj
+-Input=DefaultBuild\r_cg_wdt.obj
+-Input=DefaultBuild\r_cg_wdt_user.obj
+-Input=DefaultBuild\quecktel.obj
+-Input=DefaultBuild\quecktel_users.obj
+-SECURITY_ID=00000000000000000000
+-DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF
+-DEBug
+-NOCOmpress
+-NOOPtimize
+-OUtput=DefaultBuild\MOD_FW_1.abs
+-OCDBG=84
+-DEBUG_MONITOR=1FE00-1FFFF
+-USER_OPT_BYTE=FFFFE0
+-LISt=DefaultBuild\MOD_FW_1.map
+-SHow=SYmbol,Total_size
+-AUTO_SECTION_LAYOUT
+-ROm=.data=.dataR
+-ROm=.sdata=.sdataR
+-NOMessage
+-STACk
+-Total_size
+-NOLOgo
+-LIBrary=DefaultBuild\MOD_FW_1.lib
+-end
+-Input=DefaultBuild\MOD_FW_1.abs
+-DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF
+-OUtput=DefaultBuild\MOD_FW_1.mot
+-FOrm=Stype
+-NOMessage
+-exit
 
 
 --- SHA1 hash value of output files ---
-D:\EEPLJIJIL\BACKUP\backup20jan\MODULE_FIRWARE_V1.0-master\DefaultBuild\MOD_FW_1.abs: f23171772fe974465cd7cd9c5357fc2a88630c5c
-D:\EEPLJIJIL\BACKUP\backup20jan\MODULE_FIRWARE_V1.0-master\DefaultBuild\MOD_FW_1.mot: f8e31f31ece50bf5ad21fee767e94c0777170b12
+D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.abs: 201ded3840bc91292caae43cbf7e47d90047a451
+D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.mot: 0b36cf85d726dc919e9e74f0bea5c3530c712353
 
 
 --- System Information ---
@@ -33,13 +90,13 @@ D:\EEPLJIJIL\BACKUP\backup20jan\MODULE_FIRWARE_V1.0-master\DefaultBuild\MOD_FW_1
  C:\Program Files (x86)\Renesas Electronics\CS+\CC
 *Memory Usage
  *Private Working Set
-  409 MB
+  441 MB
  *Number of GDI Objects
-  2273
+  2211
  *Number of USER Objects
-  1376
+  1123
  *Opened Files
-  22 editors, 22 files, 185 KB
+  6 editors, 6 files, 30 KB
 
 --- Build Tool Plug-in Information ---
 RH850 Build tool CC-RH Plug-in
@@ -175,7 +232,7 @@ Device Information Common Interface
   DeviceInformation.dll
 
 --- Main Project Information ---
-D:\EEPLJIJIL\BACKUP\backup20jan\MODULE_FIRWARE_V1.0-master\MOD_FW_1.mtpj
+D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\MOD_FW_1.mtpj
 Microcontroller Information
  *R5F11TLG
   *File Name: Version

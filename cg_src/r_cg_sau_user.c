@@ -121,7 +121,7 @@ static void __near r_uart0_interrupt_receive(void)
       
 	       {
 		 timer1_Start();
-		// R_TAU0_Channel1_Start();
+	
 		  METER_DATA=0;
 		  START_TIMER=1;
 	       }

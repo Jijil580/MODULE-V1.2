@@ -39,10 +39,6 @@ Includes
 #include "r_cg_sau.h"
 #include "string.h"
 #include "quecktel.h"
-
-//#include "Quecktel.h"
-/* Start user code for include. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
 
@@ -55,9 +51,8 @@ uint8_t TCP_OPEN[]="AT+QIOPEN=1,1,\"TCP LISTENER\",\"2401:4900:9831:FD7B::2\",0,
 uint8_t TEST_TCP_DATA[]="my name is jijil";
 
 
-uint8_t UART1_RECIEVED_DATA[512];
-uint8_t UART0_RECIEVED_DATA[512];
-uint8_t RX1_BUFFER_COPY[512];
+
+
 uint8_t TEMP_BUFFER[512];
  
 
@@ -76,14 +71,14 @@ uint8_t count=0;
 uint8_t BUF_FLAG=0;
 uint8_t AT_COMMAND_COUNT=0;
 uint8_t MODULE_MODE=0;
-uint8_t TCP_DATA_BUFFER[3][512];
+
 uint8_t TCP_DATA_PROCESSED=0;
 int connection_id=11;
 uint8_t frame_size=sizeof(TCP_REPLY);
 uint8_t framsize=0;
 uint8_t tcp_count=0;
 uint8_t TCP_DATA=0;
-uint8_t TCP_FETCH[30];
+//uint8_t TCP_FETCH[30];
 //uint8_t **TCP_DATA_BUFFER;  // 2D array to hold up to 10 strings
 /***********************************************************************************************************************
 Pragma directive
@@ -111,6 +106,7 @@ uint8_t SEND_TCP_REPLY(void);
 void split_and_store(void) ;
 //void allocate_buffer();
 int m;
+int n;
 uint8_t READ_RESF=0;
  void __delay_ms(unsigned int milliseconds) {
     volatile unsigned int i, j;
@@ -180,19 +176,22 @@ void main(void)
 				FETCH_TCPDATA_AND_SEND();
 				METER_DATA=4;
 				
+				
+				
 	       		}
 			
 	       		//CONDITION FOR HANDLING TCP DATA/////
 			
 	       		else if(METER_DATA==0&&TCP_DATA==1)
 	       		{
-	        		memset(TCP_DATA_BUFFER, 0, sizeof(TCP_DATA_BUFFER));
+	        		
                 		DATA_RECIEVED=0;
 				RX0_BUFFER[RX0_BUFFER_COUNT]='\0';
 				METER_DATA=3;
 				TCP_DATA=3;
+				//
 				 timer1_Stop();
-			       
+			        
 				split_and_store(); 
 	       			
 	       			if(RECIEVED_TCP==1)
@@ -200,7 +199,10 @@ void main(void)
 		    			RECIEVED_TCP=0;
 	             			R_UART1_Send(TEMP_BUFFER, strlen(TEMP_BUFFER)-2);
 					START_TIMER=0;
-					
+					for(n=0;n<=512;n++)
+					RX1_BUFFER[n]=0;
+					RX0_BUFFER_COUNT=0;
+					//memset(RX1_BUFFER,0,sizeof(RX1_BUFFER));
 	      			}
 		
 		
@@ -272,22 +274,85 @@ uint8_t INIT_MODULE_TO_LISTEN_TCP(void) // Fix: Function name formatting (spaces
 }
 
 
-uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
+//uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
+//{
+//	RX0_BUFFER[RX0_BUFFER_COUNT]='\0';
+//	for (BUF_FLAG = 0;BUF_FLAG < RX0_BUFFER_COUNT;BUF_FLAG++)
+//        {
+//            // Check if the current sequence matches "OK\r\n"
+//            if(RESPONSE[BUF_FLAG] == 'O' && RESPONSE[BUF_FLAG+ 1] == 'K' && RESPONSE[BUF_FLAG+ 2] == '\r' && RESPONSE[BUF_FLAG + 3] == '\n')
+//            {
+//                return 1; // Match found, return 1
+//            }
+//	}
+
+//    return 0; // No match found
+
+//}
+
+void FETCH_TCPDATA_AND_SEND(void)
 {
-	RX0_BUFFER[RX0_BUFFER_COUNT]='\0';
-	for (BUF_FLAG = 0;BUF_FLAG < RX0_BUFFER_COUNT;BUF_FLAG++)
-        {
-            // Check if the current sequence matches "OK\r\n"
-            if(RESPONSE[BUF_FLAG] == 'O' && RESPONSE[BUF_FLAG+ 1] == 'K' && RESPONSE[BUF_FLAG+ 2] == '\r' && RESPONSE[BUF_FLAG + 3] == '\n')
-            {
-                return 1; // Match found, return 1
-            }
-	}
-
-    return 0; // No match found
-
+	         uint8_t data_length=0;
+		
+		 DATA_RECIEVED=0;
+		 METER_DATA=0;
+		
+		 RX1_BUFFER[RX1_BUFFER_COUNT]='\0';
+		 data_length=RX1_BUFFER_COUNT;
+		 sprintf(at_command, "AT+QISEND=%u,%u\r\n", 11,data_length);//CREATE AT COMMAND FOR SENDING
+		
+		  R_UART0_Send(at_command, strlen(at_command));
+		  __delay_ms(500);
+		   
+		  R_UART0_Send(RX1_BUFFER, data_length);
+		  MODULE_MODE=1;
+		  R_WDT_Restart(); 
+		
+	
 }
-/****************
+void split_and_store(void)
+{
+     
+    int i; 
+    int temp_index=0;
+    int data_intex=0;
+    
+    memset(TEMP_BUFFER,0,sizeof(TEMP_BUFFER));
+    for(i=0;i<500;i++)
+    {
+	if(RX0_BUFFER[i]=='r'&&RX0_BUFFER[i+1]=='e'&&
+	RX0_BUFFER[i+2]=='c'&&RX0_BUFFER[i+3]=='v')  
+	{
+          RECIEVED_TCP=1;
+	  RECIEVED=1;
+	  data_intex=i;
+	  break;
+	}
+    }
+    if(RECIEVED==1)
+    {
+	 for(i=data_intex;i<=512;i++)
+	  {
+		if((RX0_BUFFER[i]=='\n')&&(RECIEVED!=2))
+		{
+	         	RECIEVED=2;
+			i++;
+		}
+		if(RECIEVED==2)
+		{
+	  		TEMP_BUFFER[temp_index]=RX0_BUFFER[i];
+	  		temp_index++;
+		}
+	  }
+           TEMP_BUFFER[temp_index]='\0';
+           RECIEVED=0;
+	   memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
+	   data_intex=0;
+	   temp_index=0;
+     }
+	
+}
+
 uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
 {
 	//RX0_BUFFER[RX0_BUFFER_COUNT]='\0';
@@ -362,153 +427,6 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
 	
     return COMPARE_MATCH1; // No match found
 
-}
-*///////////////////
-
-void PROCESS_TCP_DATA(void)
-{
- if (DATA_RECIEVED == 1) // Ensure proper spacing for readability
-    {	RX0_BUFFER[RX0_BUFFER_COUNT]='\0';
-	DATA_RECIEVED = 0; // Reset flag
-	 
-       // memset(RX0_BUFFER, 0, 200); // Clear buffer
-        //RX0_BUFFER_COUNT = 0; // Reset buffer count
-	memset(TCP_DATA_BUFFER,0,sizeof(TCP_DATA_BUFFER));
-    }
-}
-
-
-void SPLIT_TCP_DATA(uint8_t *BUFFER)
-{
-    int token_index = 0; // Current token index
-    int char_index = 0;  // Current character index in a token
-    int buffer_i = 0;
-
-    for (buffer_i = 0; buffer_i<=RX0_BUFFER_COUNT; buffer_i++)
-    {
-        if (BUFFER[buffer_i] == ',') // If the delimiter is found
-        {
-          //  TCP_DATA_BUFFER[token_index][char_index] = '\0'; // Null-terminate the current token
-            token_index++; // Move to the next token
-            char_index = 0; // Reset character index for the next token
-
-            // Prevent overflow of tokens
-            if (token_index >= 3) 
-                break;
-        }
-        else
-        {
-            // Add character to the current token
-            if (char_index < sizeof(TCP_DATA_BUFFER[token_index]) - 1)  // Prevent overflow
-            {
-                TCP_DATA_BUFFER[token_index][char_index++] = BUFFER[buffer_i];
-            }
-        }
-    }
-
-    // Null-terminate the last token if it's not already null-terminated
-    if (token_index < 3 && char_index < sizeof(TCP_DATA_BUFFER[token_index])) 
-    {
-        TCP_DATA_BUFFER[token_index][char_index] = '\0';
-    }
-
-    TCP_DATA_PROCESSED = 1;
-   // memset(RX0_BUFFER,0,512);
-}
-
-uint8_t SEND_TCP_REPLY(void)
-{
- R_UART0_Send(at_command, strlen(at_command));
- __delay_ms(700);
- R_UART0_Send(TCP_DATA_BUFFER[2], strlen((char*)TCP_DATA_BUFFER[2]));
-//  __delay_ms(500);
-// R_UART0_Send(TCP_CLOSE, sizeof(TCP_CLOSE));
-// __delay_ms(500);
-//  R_UART0_Send(TCP_CLOSE, sizeof(TCP_OPEN));
- 
- return 1;
-}
-
-void generate_at_command(uint8_t connection_id, uint8_t frame_size)
-{
-	int ti;
-	TCP_DATA_BUFFER[1][2] = '\0';
-     //connection_id = atoi((char *)&TCP_DATA_BUFFER[1][0]);
-	for(ti=0;TCP_DATA_BUFFER[2][ti]!='\n';ti++)
-	{
-	framsize++;
-	}
-    // Buffer to store the final AT command string
-
-    // Use sprintf to format the string with connection_id and frame_size
-    sprintf(at_command, "AT+QISEND=%u,%u\r\n", 11, strlen(RX1_BUFFER_COPY));
-
-   
-}
-void FETCH_TCPDATA_AND_SEND(void)
-{
-	uint8_t data_length=0;
-	 memset(RX1_BUFFER_COPY,0,sizeof(RX1_BUFFER_COPY));
-		 memset(TCP_FETCH,0,sizeof(TCP_FETCH));
-		 DATA_RECIEVED=0;
-		 METER_DATA=0;
-		
-		 RX1_BUFFER[RX1_BUFFER_COUNT]='\0';
-		 data_length=RX1_BUFFER_COUNT;
-		 sprintf(at_command, "AT+QISEND=%u,%u\r\n", 11,data_length);//CREATE AT COMMAND FOR SENDING
-
-		//R_UART0_Send(TCP_FETCH, strlen(TCP_FETCH));
-		
-		  R_UART0_Send(at_command, strlen(at_command));
-		  __delay_ms(500);
-		   
-		  R_UART0_Send(RX1_BUFFER, data_length);
-		 MODULE_MODE=1;
-		// R_UART0_Send(TEST_TCP_DATA, 17);
-		
-	
-}
-void split_and_store(void)
-{
-      // Temporary buffer to work with the input
-    int i;  // Declare all variables at the top
-    int temp_index=0;
-    int data_intex=0;
-    //size_t index = 0;  // Declare index at the top
-    memset(TEMP_BUFFER,0,sizeof(TEMP_BUFFER));
-    for(i=0;i<500;i++)
-    {
-	if(RX0_BUFFER[i]=='r'&&RX0_BUFFER[i+1]=='e'&&
-	RX0_BUFFER[i+2]=='c'&&RX0_BUFFER[i+3]=='v')  
-	{
-          RECIEVED_TCP=1;
-	  RECIEVED=1;
-	  data_intex=i;
-	  break;
-	}
-    }
-    if(RECIEVED==1)
-    {
-	 for(i=data_intex;i<=512;i++)
-	  {
-		if((RX0_BUFFER[i]=='\n')&&(RECIEVED!=2))
-		{
-	         	RECIEVED=2;
-			i++;
-		}
-		if(RECIEVED==2)
-		{
-	  		TEMP_BUFFER[temp_index]=RX0_BUFFER[i];
-	  		temp_index++;
-		}
-	  }
-           TEMP_BUFFER[temp_index]='\0';
-           RECIEVED=0;
-	   memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
-	   data_intex=0;
-	   temp_index=0;
-     }
-	
 }
 
 

@@ -29,7 +29,8 @@
 -ROm=.data=.dataR
 -ROm=.sdata=.sdataR
 -NOMessage
--MEMory=High
+-STACk
+-Total_size
 -NOLOgo
 -LIBrary=DefaultBuild\MOD_FW_1.lib
 -end

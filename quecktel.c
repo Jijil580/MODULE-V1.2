@@ -74,20 +74,7 @@ const char *SIM_QUERRY_RESPONSE[]=
 	"\r\nERROR\r\n"
 	
 };
-const char *NETWORK_REG_STATUS[]=
-{
-	"\r\n+CREG: 0,0\r\n\r\nOK\r\n",
-	
-	"\r\n+CREG: 0,1\r\n\r\nOK\r\n",
-	
-	"\r\n+CREG: 0,2\r\n\r\nOK\r\n",
-	
-	"\r\n+CREG: 0,3\r\n\r\nOK\r\n",
-	
-	"\r\n+CREG: 0,4\r\n\r\nOK\r\n",
-	
-	"\r\n+CREG: 0,5\r\n\r\nOK\r\n"	
-};
+
 
 const char *NETWORK_OPERATOR_STSTUS[]=
 {
@@ -109,29 +96,68 @@ const char *SIGNAL_QUALITY[]=
 	
 	
 ////};
-//const char *NETWORK_REG_STATUS[]=
-//{
-//	"\r\n+CREG: 0,0\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 0,1\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 0,2\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 0,3\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 0,4\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 0,5\r\n\r\nOK\r\n",
+const char *NETWORK_REGI_STATUS[]=
+{
+	"\r\n+CREG: 0,0\r\n\r\nOK\r\n",
+	"\r\n+CREG: 0,1\r\n\r\nOK\r\n",
+	"\r\n+CREG: 0,2\r\n\r\nOK\r\n",
+	"\r\n+CREG: 0,3\r\n\r\nOK\r\n",
+	"\r\n+CREG: 0,4\r\n\r\nOK\r\n",
+	"\r\n+CREG: 0,5\r\n\r\nOK\r\n",
 	
-//	"\r\n+CREG: 1,0\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 1,1\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 1,2\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 1,3\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 1,4\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 1,5\r\n\r\nOK\r\n",
+	"\r\n+CREG: 1,0\r\n\r\nOK\r\n",
+	"\r\n+CREG: 1,1\r\n\r\nOK\r\n",
+	"\r\n+CREG: 1,2\r\n\r\nOK\r\n",
+	"\r\n+CREG: 1,3\r\n\r\nOK\r\n",
+	"\r\n+CREG: 1,4\r\n\r\nOK\r\n",
+	"\r\n+CREG: 1,5\r\n\r\nOK\r\n",
 	
-//	"\r\n+CREG: 2,0\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 2,1\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 2,2\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 2,3\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 2,4\r\n\r\nOK\r\n",
-//	"\r\n+CREG: 2,5\r\n\r\nOK\r\n"
+	"\r\n+CREG: 2,0\r\n\r\nOK\r\n",
+	"\r\n+CREG: 2,1\r\n\r\nOK\r\n",
+	"\r\n+CREG: 2,2\r\n\r\nOK\r\n",
+	"\r\n+CREG: 2,3\r\n\r\nOK\r\n",
+	"\r\n+CREG: 2,4\r\n\r\nOK\r\n",
+	"\r\n+CREG: 2,5\r\n\r\nOK\r\n"
 
 	
-//}
+};
+const char *OPERATOR_STATUS[]=
+{
+	"\r\n+COPS: 0,0,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 0,0,\"IND airtel\",7\r\n\r\nOK\r\n",
+	"\r\n+COPS: 0,1,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 0,1,\"IND airtel\",7\r\n\r\nOK\r\n",
+	"\r\n+COPS: 0,2,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 0,2,\"IND airtel\",7\r\n\r\nOK\r\n",
+	
+	"\r\n+COPS: 1,0,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 1,0,\"IND airtel\",7\r\n\r\nOK\r\n",
+	"\r\n+COPS: 1,1,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 1,1,\"IND airtel\",7\r\n\r\nOK\r\n",
+	"\r\n+COPS: 1,2,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 1,2,\"IND airtel\",7\r\n\r\nOK\r\n",
+	
+	"\r\n+COPS: 2,0,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 2,0,\"IND airtel\",7\r\n\r\nOK\r\n",
+	"\r\n+COPS: 2,1,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 2,1,\"IND airtel\",7\r\n\r\nOK\r\n",
+	"\r\n+COPS: 2,2,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 2,2,\"IND airtel\",7\r\n\r\nOK\r\n",
+	
+	"\r\n+COPS: 3,0,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 3,0,\"IND airtel\",7\r\n\r\nOK\r\n",
+	"\r\n+COPS: 3,1,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 3,1,\"IND airtel\",7\r\n\r\nOK\r\n",
+	"\r\n+COPS: 3,2,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 3,2,\"IND airtel\",7\r\n\r\nOK\r\n",
+	
+        "\r\n+COPS: 3,0,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 3,0,\"IND airtel\",7\r\n\r\nOK\r\n",
+	"\r\n+COPS: 3,1,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 3,1,\"IND airtel\",7\r\n\r\nOK\r\n",
+	"\r\n+COPS: 3,2,\"IND airtel\",0\r\n\r\nOK\r\n",
+	"\r\n+COPS: 3,2,\"IND airtel\",7\r\n\r\nOK\r\n"
+
+	
+};
 

@@ -737,7 +737,7 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
       <LinkOptionRrm-DefaultValue>False</LinkOptionRrm-DefaultValue>
       <LinkOptionRrmValue-DefaultValue />
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8584642524805309586</TimeTagModified--0>
+      <TimeTagModified--0>-8584641641938021307</TimeTagModified--0>
       <LinkOptionAutoSectionLayout-0>True</LinkOptionAutoSectionLayout-0>
       <LinkOptionCpu-0>False</LinkOptionCpu-0>
       <LinkOptionDebug-0>Debug</LinkOptionDebug-0>
@@ -749,7 +749,7 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
       <LinkOptionOcdbg-0>True</LinkOptionOcdbg-0>
       <LinkOptionOptimize-0>None</LinkOptionOptimize-0>
       <LinkOptionOutputFolder-0>%BuildModeName%</LinkOptionOutputFolder-0>
-      <LinkOptionStack-0>False</LinkOptionStack-0>
+      <LinkOptionStack-0>True</LinkOptionStack-0>
       <LinkOptionVfinfo-0>False</LinkOptionVfinfo-0>
       <LinkOptionBinary-0 />
       <LinkOptionCompress-0>False</LinkOptionCompress-0>
@@ -774,7 +774,7 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
       <LinkOptionSecurityOptByte-0>False</LinkOptionSecurityOptByte-0>
       <LinkOptionShowSymbol-0>True</LinkOptionShowSymbol-0>
       <LinkOptionStart-0 />
-      <LinkOptionTotalSize-0>False</LinkOptionTotalSize-0>
+      <LinkOptionTotalSize-0>True</LinkOptionTotalSize-0>
       <LinkOptionVfinfoFileName-0>%ProjectName%_vfi.h</LinkOptionVfinfoFileName-0>
       <LinkOptionChangeMessageInformation-0>None</LinkOptionChangeMessageInformation-0>
       <LinkOptionCheck64KOnly-0>False</LinkOptionCheck64KOnly-0>

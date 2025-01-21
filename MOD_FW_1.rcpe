@@ -105,7 +105,8 @@
           <Option>-ROm=.data=.dataR</Option>
           <Option>-ROm=.sdata=.sdataR</Option>
           <Option>-NOMessage</Option>
-          <Option>-MEMory=High</Option>
+          <Option>-STACk</Option>
+          <Option>-Total_size</Option>
           <Option>-NOLOgo</Option>
           <Option>-END</Option>
           <Option>-Input=%BuildModeName%\%ProjectName%.abs</Option>
