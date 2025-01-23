@@ -158,3 +158,10 @@ const char *OPERATOR_STATUS[]=
 	
 };
 
+const char *TCP_ALIVE[]=
+{
+	"\r\n+QICFG: \"tcp/keepalive\",0\r\n\r\nOK\r\n"
+
+	
+};
+

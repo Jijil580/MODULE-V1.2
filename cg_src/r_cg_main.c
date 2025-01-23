@@ -61,7 +61,7 @@ uint8_t RECIEVED=0;
 uint8_t RECIEVED_TCP=0;
 long int TIMER_COUNT;
 long int TIMER1_COUNT;
-extern uint8_t DATA_RECIEVED;
+
 extern uint8_t COMPARE_MATCH1=0;
 extern uint8_t TCP_INIT_STATUS;
 
@@ -107,6 +107,18 @@ void split_and_store(void) ;
 //void allocate_buffer();
 int m;
 int n;
+
+uint8_t data[] = {
+    0x00, 0x01, 0x00, 0x01, 0x00, 0x10, 0x00, 0x2B,
+    0x61, 0x29, 0xA1, 0x09, 0x06, 0x07, 0x60, 0x85,
+    0x74, 0x05, 0x08, 0x01, 0x01, 0xA2, 0x03, 0x02,
+    0x01, 0x00, 0xA3, 0x05, 0xA1, 0x03, 0x02, 0x01,
+    0x00, 0xBE, 0x10, 0x04, 0x0E, 0x08, 0x00, 0x06,
+    0x5F, 0x1F, 0x04, 0x00, 0x00, 0x00, 0x10, 0x03,
+    0x40, 0x00, 0x07
+};
+
+
 uint8_t READ_RESF=0;
  void __delay_ms(unsigned int milliseconds) {
     volatile unsigned int i, j;
@@ -170,7 +182,7 @@ void main(void)
 			 TIMER1_COUNT=0;
 			 START_TIMER=0;
 			 
-			 ///CONDITION FOR HANDLING DATAS FROM METYER // 
+			 ///CONDITION FOR HANDLING DATAS FROM METER // 
                		if(METER_DATA==1&&TCP_DATA==0)
 	      	        {
 				FETCH_TCPDATA_AND_SEND();
@@ -190,7 +202,7 @@ void main(void)
 				METER_DATA=3;
 				TCP_DATA=3;
 				//
-				 timer1_Stop();
+				// timer1_Stop();
 			        
 				split_and_store(); 
 	       			
@@ -198,11 +210,13 @@ void main(void)
 	       			{
 		    			RECIEVED_TCP=0;
 	             			R_UART1_Send(TEMP_BUFFER, strlen(TEMP_BUFFER)-2);
+					//R_UART1_Send(at_commands[AT_COMMAND_COUNT], strlen(at_commands[AT_COMMAND_COUNT])); 
 					START_TIMER=0;
 					for(n=0;n<=512;n++)
 					RX1_BUFFER[n]=0;
 					RX0_BUFFER_COUNT=0;
 					//memset(RX1_BUFFER,0,sizeof(RX1_BUFFER));
+					
 	      			}
 		
 		
@@ -246,7 +260,7 @@ uint8_t INIT_MODULE_TO_LISTEN_TCP(void) // Fix: Function name formatting (spaces
     if (DATA_RECIEVED == 1) // Ensure proper spacing for readability
     {
 	    
-	
+	RX0_BUFFER[RX0_BUFFER_COUNT]='\0';
         COMPARE_MATCH1=CHECK_MODULE_RESPONSE(RX0_BUFFER);
 	if(COMPARE_MATCH1==1)
 		{
@@ -262,6 +276,7 @@ uint8_t INIT_MODULE_TO_LISTEN_TCP(void) // Fix: Function name formatting (spaces
          	 R_UART0_Send(at_commands[AT_COMMAND_COUNT], strlen(at_commands[AT_COMMAND_COUNT])); // Send AT command
 		 TCP_INIT_STATUS=0;
 		 MODULE_MODE=0;
+	
        		 }
 	if(AT_COMMAND_COUNT>=22)
 	{
@@ -299,14 +314,14 @@ void FETCH_TCPDATA_AND_SEND(void)
 		
 		 RX1_BUFFER[RX1_BUFFER_COUNT]='\0';
 		 data_length=RX1_BUFFER_COUNT;
-		 sprintf(at_command, "AT+QISEND=%u,%u\r\n", 11,data_length);//CREATE AT COMMAND FOR SENDING
+		sprintf(at_command, "AT+QISEND=%u,%u\r\n", 11,51);//CREATE AT COMMAND FOR SENDING
 		
 		  R_UART0_Send(at_command, strlen(at_command));
-		  __delay_ms(500);
-		   
-		  R_UART0_Send(RX1_BUFFER, data_length);
+		  __delay_ms(100);
+		    //R_WDT_Restart(); 
+		  R_UART0_Send(RX1_BUFFER, 51);
 		  MODULE_MODE=1;
-		  R_WDT_Restart(); 
+		 
 		
 	
 }
@@ -361,7 +376,7 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
 	{
 		case 0:
 		{
-			COMPARE_MATCH1=Check_Common_Response(RESPONSE);
+			COMPARE_MATCH1=CHECK_OK_RESPONSE(RESPONSE);
 
 			 break;
 		}
@@ -442,7 +457,7 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
 		}
 		case 14:
 		{
-			COMPARE_MATCH1= Check_Sigmal_Qulity(RESPONSE);
+			COMPARE_MATCH1=Check_Signal_Quality(RESPONSE);
 			 break;
 		}
 		case 15:

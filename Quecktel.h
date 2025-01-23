@@ -13,7 +13,7 @@ uint8_t Check_SIM_status(uint8_t *RESPONSE);
 uint8_t Check_EDRX_Status(uint8_t *RESPONSE);
 uint8_t Ceck_Network_Reg_status(uint8_t *RESPONSE);
 uint8_t CHECK_OK_RESPONSE(uint8_t *RESPONSE);
-
+uint8_t Check_Signal_Quality(uint8_t *RESPONSE);
 
 
 #endif

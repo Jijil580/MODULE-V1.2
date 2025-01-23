@@ -1,4 +1,4 @@
-///jijil///
+///debug notes jijil///
 
 
 date:17/12025
@@ -11,7 +11,7 @@ to do
 
 date:20/1/2025
 
-ststus :
+status :
 clock read worked
 
 to do;
@@ -19,7 +19,7 @@ data download
 
 date:21/1/2025
 
-ststus :
+status :
 RESET ISUUE PERSIST
 
 to do;
@@ -27,3 +27,24 @@ SOLVE RESET
 
 WORKING ON:
 CHECKS OF RESPONSES UP TO SIGNAL QULITY COMPLETED ,DEBUGING MACRO DEFINED FOR SIGNAL QUALITY
+
+date:22/1/2025
+
+status :
+RESET ISUUE PERSIST
+
+to do;
+SOLVE RESET  ,
+1 checked interrupt conflict by disbling timer interrupt 
+findings:
+ found that ,uart1 reception causing reset,tried sending meter reply data hard coded to gurux and it is working and 
+mcu not resting.
+also found sending data to meter not causing reset.
+conclusion:issue with uart1
+
+date:23/1/2025
+
+status :
+signal qulity checks completed.
+mcu rest issue not solved
+

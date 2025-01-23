@@ -249,55 +249,29 @@ static void __near r_uart1_interrupt_receive(void)
     
  
 	if(TIMER_COUNT==0)
-	   {
-            timer1_Start(); 
-	     METER_DATA=1;
-	    }
+	{
+            	timer1_Start(); 
+	     	METER_DATA=1;
+	 }
 
 	
-     
-	  RX1_BUFFER[RX1_BUFFER_COUNT]= rx_data;
-	 // MAIN_RX_STORE[MAIN_RX_STORE_COUNT]=rx_data;
-	   RX1_BUFFER_COUNT++;
-	   MAIN_RX_STORE_COUNT++;
+      	if (RX1_BUFFER_COUNT < 512) 
+	{
+	  	RX1_BUFFER[RX1_BUFFER_COUNT]= rx_data;
 	
-	   
-    
- /* 
- if (rx_data == '\n')
-        {
-            LINE_END_COUNT++;
-           
-               
-           // {
-                END_OF_RESPONSE1 = 1;
-                
-           // }
-        }
-    
-
-       
+	   	RX1_BUFFER_COUNT++;
+	}
 	
-    }
-    
-       if(END_OF_RESPONSE1)
-       {
-	 
-        
-         RX1_BUFFER[RX1_BUFFER_COUNT]='\0';
-	 
-	 
-	     
-         r_uart1_callback_receiveend();
- 
-          END_OF_RESPONSE1 = 0;
-        }
-    
-    else
-    {
-        r_uart1_callback_softwareoverrun(rx_data);
-    }
-    */
+//	if(RX1_BUFFER_COUNT==51)
+//	{
+//		  timer1_Stop();
+//           TCP_DATA=0;
+//           TIMER1_COUNT=0;
+//	   DATA_RECIEVED=1;
+//	   START_TIMER=0;
+		
+//	}
+	
 }
 /***********************************************************************************************************************
 * Function Name: r_uart1_interrupt_send

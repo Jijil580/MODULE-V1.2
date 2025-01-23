@@ -5,6 +5,8 @@
 
 #define CHECK(index) if(strncmp((char *)RESPONSE, SIGNAL_QUALITY["#index"], strlen(SIGNAL_QUALITY["#index"])) == 0)
 
+#define ARRAY_SIZE (sizeof(SIGNAL_QUALITY) / strlen(SIGNAL_QUALITY[0]))
+
 uint8_t Check_Common_Response(uint8_t *RESPONSE);
 uint8_t Check_SIM_status(uint8_t *RESPONSE);
 uint8_t Check_EDRX_Status(uint8_t *RESPONSE);
@@ -109,19 +111,15 @@ uint8_t Check_Operator_Status(uint8_t *RESPONSE)
          }	
 	 return 0;
 }
-uint8_t Check_Sigmal_Qulity(uint8_t *RESPONSE)
+uint8_t Check_Signal_Quality(uint8_t *RESPONSE)
 {
-	for(Sting_index=0;Sting_index<=288;Sting_index++)
+	 for(Sting_index=0;Sting_index<=288;Sting_index++)
 	{
-		if(strncmp((char *)RESPONSE, SIGNAL_QUALITY[Sting_index], strlen(SIGNAL_QUALITY[Sting_index])) == 0)
+	 	if (strncmp((char *)RESPONSE, SIGNAL_QUALITY[Sting_index], strlen(SIGNAL_QUALITY[Sting_index])) == 0)
 	 	{
-	 		return 1; 	 
-        	}	
-		
-		
+			return 1; 	 
+         	}	
 	}
-	 return 0;
-	
+	 return 0;	
+		
 }
-
-
