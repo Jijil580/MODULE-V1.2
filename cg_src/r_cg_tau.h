@@ -371,6 +371,7 @@ extern long int TIMER1_COUNT;
 extern uint8_t METER_DATA;
 extern uint8_t TCP_DATA;
 extern uint8_t DATA_RECIEVED;
+extern uint8_t HANDLING_METER_DATA;
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/

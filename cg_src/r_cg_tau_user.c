@@ -106,7 +106,7 @@ extern void delay_In_Seconds(long int seconds)
 static void __near r_tau0_channel1_interrupt(void)
 {
 	 TIMER1_COUNT++;
-	 
+	 R_WDT_Restart();
 	   if(TIMER1_COUNT>=1&&TCP_INIT_STATUS==1&&METER_DATA==1)///DATA FROM METER RECVD
 	  {
            timer1_Stop();

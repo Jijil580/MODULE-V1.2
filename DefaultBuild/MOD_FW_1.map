@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (V3.07.00 )             23-Jan-2025 16:22:32
+Renesas Optimizing Linker (V3.07.00 )             25-Jan-2025 14:44:29
 
 *** Options ***
 
@@ -63,11 +63,11 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .data
-                                  000000d8  000004a5       3ce   2
+                                  000000d8  0000042d       356   2
 .text
-                                  000004a6  00000756       2b1   1
+                                  0000042e  000006ab       27e   1
 .textf
-                                  00000757  00000ff0       89a   1
+                                  000006ac  00000f68       8bd   1
 .const
                                   00002000  00004080      2081   2
 .SLIB
@@ -75,9 +75,9 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor2
                                   0001fe00  0001ffff       200   1
 .bss
-                                  000fdf00  000fe7db       8dc   2
+                                  000fdf00  000fe7c3       8c4   2
 .dataR
-                                  000fe7dc  000feba9       3ce   2
+                                  000fe7c4  000feb19       356   2
 .sbss
                                   000ffe20  000ffe20         0   2
 .sdataR
@@ -85,9 +85,9 @@ SECTION                            START      END         SIZE   ALIGN
 
 *** Total Section Size ***
 
-RAMDATA SECTION:  00000caa Byte(s)
-ROMDATA SECTION:  000026fb Byte(s)
-PROGRAM SECTION:  00003337 Byte(s)
+RAMDATA SECTION:  00000c1a Byte(s)
+ROMDATA SECTION:  00002683 Byte(s)
+PROGRAM SECTION:  00003327 Byte(s)
 
 *** Symbol List ***
 
@@ -117,161 +117,163 @@ FILE=rlink_generates_02
 
 SECTION=.data
 FILE=DefaultBuild\r_cg_main.obj
-                                  000000d8  0000019d        c6
+                                  000000d8  00000125        4e
 FILE=DefaultBuild\r_cg_tau_user.obj
-                                  0000019e  000001a1         4
+                                  00000126  00000129         4
 FILE=DefaultBuild\r_cg_sau_user.obj
-                                  000001a2  000001ad         c
+                                  0000012a  00000135         c
 FILE=DefaultBuild\quecktel.obj
-                                  000001ae  00000253        a6
+                                  00000136  000001db        a6
 FILE=DefaultBuild\quecktel_users.obj
-                                  00000254  00000255         2
+                                  000001dc  000001dd         2
 FILE=DefaultBuild\csq.obj
-                                  00000256  000004a5       250
+                                  000001de  0000042d       250
 
 SECTION=.text
 FILE=DefaultBuild\cstart.obj
-                                  000004a6  00000518        73
+                                  0000042e  000004a0        73
   _start
-                                  000004a6         0   none ,g         * 
+                                  0000042e         0   none ,g         * 
   _exit
-                                  00000516         0   none ,g         * 
+                                  0000049e         0   none ,g         * 
   _atexit
-                                  00000518         0   none ,g         * 
+                                  000004a0         0   none ,g         * 
 FILE=DefaultBuild\r_cg_tau_user.obj
-                                  00000519  000005ed        d5
+                                  000004a1  0000057e        de
   _r_tau0_channel0_interrupt@1
-                                  00000519        4a   func ,l         * 
+                                  000004a1        4a   func ,l         * 
   _r_tau0_channel1_interrupt@1
-                                  00000563        8b   func ,l         * 
+                                  000004eb        94   func ,l         * 
 FILE=DefaultBuild\r_cg_sau_user.obj
-                                  000005ee  00000754       167
+                                  0000057f  000006a9       12b
   _r_uart0_interrupt_receive@1
-                                  000005ee        83   func ,l         * 
+                                  0000057f        4c   func ,l         * 
   _r_uart0_interrupt_send@1
-                                  00000671        47   func ,l         * 
+                                  000005cb        47   func ,l         * 
   _r_uart1_interrupt_receive@1
-                                  000006b8        55   func ,l         * 
+                                  00000612        4c   func ,l         * 
   _r_uart1_interrupt_send@1
-                                  0000070d        48   func ,l         * 
+                                  0000065e        4c   func ,l         * 
 FILE=DefaultBuild\r_cg_wdt_user.obj
-                                  00000755  00000756         2
+                                  000006aa  000006ab         2
   _r_wdt_interrupt@1
-                                  00000755         2   func ,l         * 
+                                  000006aa         2   func ,l         * 
 
 SECTION=.textf
 FILE=DefaultBuild\stkinit.obj
-                                  00000757  0000079a        44
+                                  000006ac  000006ef        44
   _stkinit
-                                  00000757         0   none ,g         * 
+                                  000006ac         0   none ,g         * 
   LSTINIT1
-                                  00000765         0   none ,l         * 
+                                  000006ba         0   none ,l         * 
   LSTINIT2
-                                  0000078f         0   none ,l         * 
+                                  000006e4         0   none ,l         * 
   LSTINIT3
-                                  0000079a         0   none ,l         * 
+                                  000006ef         0   none ,l         * 
 FILE=DefaultBuild\r_cg_main.obj
-                                  0000079b  00000a75       2db
+                                  000006f0  000009ed       2fe
   ___delay_ms
-                                  0000079b        25   func ,g         * 
+                                  000006f0        25   func ,g         * 
   _main
-                                  000007c0        f2   func ,g         * 
-  _INIT_MODULE_TO_LISTEN_TCP
-                                  000008b2        67   func ,g         * 
-  _FETCH_TCPDATA_AND_SEND
-                                  00000919        46   func ,g         * 
-  _split_and_store
-                                  0000095f        a2   func ,g         * 
+                                  00000715        de   func ,g         * 
+  _INIT_MODULE_TO_TCP_LISTENMODE
+                                  000007f3        67   func ,g         * 
+  _FETCH_METERDATA_AND_SEND
+                                  0000085a        4a   func ,g         * 
+  _FETCH_TCP_DATA
+                                  000008a4        c3   func ,g         * 
   _CHECK_MODULE_RESPONSE
-                                  00000a01        75   func ,g         * 
+                                  00000967        75   func ,g         * 
+  _WAIT_RECEPTION_TO_COMPLETE
+                                  000009dc        12   func ,g         * 
 FILE=DefaultBuild\r_cg_systeminit.obj
-                                  00000a76  00000ac6        51
+                                  000009ee  00000a3e        51
   _R_Systeminit
-                                  00000a76        4c   func ,g         * 
+                                  000009ee        4c   func ,g         * 
   _hdwinit
-                                  00000ac2         5   func ,g         * 
+                                  00000a3a         5   func ,g         * 
 FILE=DefaultBuild\r_cg_cgc.obj
-                                  00000ac7  00000b40        7a
+                                  00000a3f  00000ab8        7a
   _R_CGC_Create
-                                  00000ac7        7a   func ,g         * 
+                                  00000a3f        7a   func ,g         * 
 FILE=DefaultBuild\r_cg_cgc_user.obj
-                                  00000b41  00000b43         3
+                                  00000ab9  00000abb         3
   _R_CGC_Get_ResetSource
-                                  00000b41         3   func ,g         * 
+                                  00000ab9         3   func ,g         * 
 FILE=DefaultBuild\r_cg_port.obj
-                                  00000b44  00000b58        15
+                                  00000abc  00000ad0        15
   _R_PORT_Create
-                                  00000b44        15   func ,g         * 
+                                  00000abc        15   func ,g         * 
 FILE=DefaultBuild\r_cg_tau.obj
-                                  00000b59  00000c3f        e7
+                                  00000ad1  00000bb7        e7
   _R_TAU0_Create
-                                  00000b59        a7   func ,g         * 
+                                  00000ad1        a7   func ,g         * 
   _R_TAU0_Channel0_Start
-                                  00000c00        10   func ,g         * 
+                                  00000b78        10   func ,g         * 
   _R_TAU0_Channel0_Stop
-                                  00000c10        10   func ,g         * 
+                                  00000b88        10   func ,g         * 
   _timer1_Start
-                                  00000c20        10   func ,g         * 
+                                  00000b98        10   func ,g         * 
   _timer1_Stop
-                                  00000c30        10   func ,g         * 
+                                  00000ba8        10   func ,g         * 
 FILE=DefaultBuild\r_cg_tau_user.obj
-                                  00000c40  00000c67        28
+                                  00000bb8  00000bdf        28
   _delay_In_Seconds
-                                  00000c40        28   func ,g         * 
+                                  00000bb8        28   func ,g         * 
 FILE=DefaultBuild\r_cg_sau.obj
-                                  00000c68  00000e7f       218
+                                  00000be0  00000df7       218
   _R_SAU0_Create
-                                  00000c68        14   func ,g         * 
+                                  00000be0        14   func ,g         * 
   _R_UART0_Create
-                                  00000c7c        78   func ,g         * 
+                                  00000bf4        78   func ,g         * 
   _R_UART0_Start
-                                  00000cf4        26   func ,g         * 
+                                  00000c6c        26   func ,g         * 
   _R_UART0_Stop
-                                  00000d1a        1e   func ,g         * 
+                                  00000c92        1e   func ,g         * 
   _R_UART0_Receive
-                                  00000d38        18   func ,g         * 
+                                  00000cb0        18   func ,g         * 
   _R_UART0_Send
-                                  00000d50        26   func ,g         * 
+                                  00000cc8        26   func ,g         * 
   _R_UART1_Create
-                                  00000d76        88   func ,g         * 
+                                  00000cee        88   func ,g         * 
   _R_UART1_Start
-                                  00000dfe        26   func ,g         * 
+                                  00000d76        26   func ,g         * 
   _R_UART1_Stop
-                                  00000e24        1e   func ,g         * 
+                                  00000d9c        1e   func ,g         * 
   _R_UART1_Receive
-                                  00000e42        18   func ,g         * 
+                                  00000dba        18   func ,g         * 
   _R_UART1_Send
-                                  00000e5a        26   func ,g         * 
+                                  00000dd2        26   func ,g         * 
 FILE=DefaultBuild\r_cg_sau_user.obj
-                                  00000e80  00000e82         3
+                                  00000df8  00000dfa         3
   _r_uart0_callback_sendend@1
-                                  00000e80         1   func ,l         * 
+                                  00000df8         1   func ,l         * 
   _r_uart0_callback_error@1
-                                  00000e81         1   func ,l         * 
+                                  00000df9         1   func ,l         * 
   _r_uart1_callback_error@1
-                                  00000e82         1   func ,l         * 
+                                  00000dfa         1   func ,l         * 
 FILE=DefaultBuild\r_cg_wdt.obj
-                                  00000e83  00000e96        14
+                                  00000dfb  00000e0e        14
   _R_WDT_Create
-                                  00000e83        10   func ,g         * 
+                                  00000dfb        10   func ,g         * 
   _R_WDT_Restart
-                                  00000e93         4   func ,g         * 
+                                  00000e0b         4   func ,g         * 
 FILE=DefaultBuild\quecktel_users.obj
-                                  00000e97  00000ff0       15a
+                                  00000e0f  00000f68       15a
   _CHECK_OK_RESPONSE
-                                  00000e97        38   func ,g         * 
+                                  00000e0f        38   func ,g         * 
   _Check_Common_Response
-                                  00000ecf        35   func ,g         * 
+                                  00000e47        35   func ,g         * 
   _Check_EDRX_Status
-                                  00000f04        31   func ,g         * 
+                                  00000e7c        31   func ,g         * 
   _Check_SIM_status
-                                  00000f35        35   func ,g         * 
+                                  00000ead        35   func ,g         * 
   _Ceck_Network_Reg_status
-                                  00000f6a        35   func ,g         * 
+                                  00000ee2        35   func ,g         * 
   _Check_Operator_Status
-                                  00000f9f        1d   func ,g         * 
+                                  00000f17        1d   func ,g         * 
   _Check_Signal_Quality
-                                  00000fbc        35   func ,g         * 
+                                  00000f34        35   func ,g         * 
 
 SECTION=.const
 FILE=DefaultBuild\r_cg_main.obj
@@ -411,174 +413,156 @@ FILE=rlink_generates_02
 
 SECTION=.bss
 FILE=DefaultBuild\r_cg_main.obj
-                                  000fdf00  000fe13f       240
-  _at_command
-                                  000fdf00        32   data ,g         * 
+                                  000fdf00  000fe126       227
   _TEMP_BUFFER
-                                  000fdf32       200   data ,g         * 
+                                  000fdf00       200   data ,g         * 
   _TIMER_COUNT
-                                  000fe132         4   data ,g         * 
+                                  000fe100         4   data ,g         * 
   _TIMER1_COUNT
-                                  000fe136         4   data ,g         * 
-  _FEEDBACK_LENGTHG
-                                  000fe13a         2   data ,g         * 
-  _m
-                                  000fe13c         2   data ,g         * 
-  _n
-                                  000fe13e         2   data ,g         * 
+                                  000fe104         4   data ,g         * 
+  _at_command
+                                  000fe108        1e   data ,g         * 
+  _buffer_Count
+                                  000fe126         1   data ,g         * 
 FILE=DefaultBuild\r_cg_tau_user.obj
-                                  000fe140  000fe140         1
+                                  000fe128  000fe128         1
   _TCP_INIT_STATUS
-                                  000fe140         1   data ,g         * 
+                                  000fe128         1   data ,g         * 
 FILE=DefaultBuild\r_cg_sau.obj
-                                  000fe142  000fe155        14
+                                  000fe12a  000fe13d        14
   _gp_uart0_tx_address
-                                  000fe142         2   data ,g         * 
+                                  000fe12a         2   data ,g         * 
   _g_uart0_tx_count
-                                  000fe144         2   data ,g         * 
+                                  000fe12c         2   data ,g         * 
   _gp_uart0_rx_address
-                                  000fe146         2   data ,g         * 
+                                  000fe12e         2   data ,g         * 
   _g_uart0_rx_count
-                                  000fe148         2   data ,g         * 
+                                  000fe130         2   data ,g         * 
   _g_uart0_rx_length
-                                  000fe14a         2   data ,g         * 
+                                  000fe132         2   data ,g         * 
   _gp_uart1_tx_address
-                                  000fe14c         2   data ,g         * 
+                                  000fe134         2   data ,g         * 
   _g_uart1_tx_count
-                                  000fe14e         2   data ,g         * 
+                                  000fe136         2   data ,g         * 
   _gp_uart1_rx_address
-                                  000fe150         2   data ,g         * 
+                                  000fe138         2   data ,g         * 
   _g_uart1_rx_count
-                                  000fe152         2   data ,g         * 
+                                  000fe13a         2   data ,g         * 
   _g_uart1_rx_length
-                                  000fe154         2   data ,g         * 
+                                  000fe13c         2   data ,g         * 
 FILE=DefaultBuild\r_cg_sau_user.obj
-                                  000fe156  000fe756       601
+                                  000fe13e  000fe73f       602
   _RX0_RECIEVED_STRING_LENGTH
-                                  000fe156         1   data ,g         * 
+                                  000fe13e         1   data ,g         * 
   _RX0_BUFFER
-                                  000fe157       200   data ,g         * 
+                                  000fe13f       200   data ,g         * 
   _RX1_BUFFER
-                                  000fe357       200   data ,g         * 
+                                  000fe33f       200   data ,g         * 
+  _HANDLING_METER_DATA
+                                  000fe53f         1   data ,g         * 
   _final_buffer
-                                  000fe557       200   data ,g         * 
+                                  000fe540       200   data ,g         * 
 FILE=sprintf
-                                  000fe758  000fe75b         4
+                                  000fe740  000fe743         4
   __REL_pointer@1
-                                  000fe758         4   data ,l         * 
+                                  000fe740         4   data ,l         * 
 FILE=_REL_print
-                                  000fe75c  000fe7db        80
+                                  000fe744  000fe7c3        80
   _qt@1@_REL_inmod@1
-                                  000fe75c        80   data ,l         * 
+                                  000fe744        80   data ,l         * 
 
 SECTION=.dataR
 FILE=DefaultBuild\r_cg_main.obj
-                                  000fe7dc  000fe8a1        c6
-  _TCP_SUCCESS
-                                  000fe7dc        11   data ,g         * 
-  _TCP_REPLY
-                                  000fe7ed        12   data ,g         * 
+                                  000fe7c4  000fe811        4e
   _TCP_CLOSE
-                                  000fe7ff         e   data ,g         * 
-  _TCP_OPEN
-                                  000fe80d        42   data ,g         * 
-  _TEST_TCP_DATA
-                                  000fe84f        11   data ,g         * 
+                                  000fe7c4         e   data ,g         * 
   _RECIEVED
-                                  000fe860         1   data ,g         * 
+                                  000fe7d2         1   data ,g         * 
   _RECIEVED_TCP
-                                  000fe861         1   data ,g         * 
+                                  000fe7d3         1   data ,g         * 
   _COMPARE_MATCH1
-                                  000fe862         1   data ,g         * 
-  _count
-                                  000fe863         1   data ,g         * 
+                                  000fe7d4         1   data ,g         * 
   _BUF_FLAG
-                                  000fe864         1   data ,g         * 
+                                  000fe7d5         1   data ,g         * 
   _AT_COMMAND_COUNT
-                                  000fe865         1   data ,g         * 
+                                  000fe7d6         1   data ,g         * 
   _MODULE_MODE
-                                  000fe866         1   data ,g         * 
+                                  000fe7d7         1   data ,g         * 
   _TCP_DATA_PROCESSED
-                                  000fe867         1   data ,g         * 
-  _connection_id
-                                  000fe868         2   data ,g         * 
-  _frame_size
-                                  000fe86a         1   data ,g         * 
-  _framsize
-                                  000fe86b         1   data ,g         * 
-  _tcp_count
-                                  000fe86c         1   data ,g         * 
+                                  000fe7d8         1   data ,g         * 
   _TCP_DATA
-                                  000fe86d         1   data ,g         * 
+                                  000fe7d9         1   data ,g         * 
+  _WAIT_COUNT
+                                  000fe7da         4   data ,g         * 
   _data
-                                  000fe86e        33   data ,g         * 
+                                  000fe7de        33   data ,g         * 
   _READ_RESF
-                                  000fe8a1         1   data ,g         * 
+                                  000fe811         1   data ,g         * 
 FILE=DefaultBuild\r_cg_tau_user.obj
-                                  000fe8a2  000fe8a5         4
+                                  000fe812  000fe815         4
   _DATA_RECIEVED
-                                  000fe8a2         1   data ,g         * 
+                                  000fe812         1   data ,g         * 
   _START_TIMER
-                                  000fe8a4         2   data ,g         * 
+                                  000fe814         2   data ,g         * 
 FILE=DefaultBuild\r_cg_sau_user.obj
-                                  000fe8a6  000fe8b1         c
+                                  000fe816  000fe821         c
   _LINE_END_COUNT
-                                  000fe8a6         1   data ,g         * 
+                                  000fe816         1   data ,g         * 
   _URC_COUNT
-                                  000fe8a7         1   data ,g         * 
+                                  000fe817         1   data ,g         * 
   _METER_DATA
-                                  000fe8a8         1   data ,g         * 
+                                  000fe818         1   data ,g         * 
   _RX0_BUFFER_COUNT
-                                  000fe8aa         2   data ,g         * 
+                                  000fe81a         2   data ,g         * 
   _TX0_BUFFER_COUNT
-                                  000fe8ac         1   data ,g         * 
+                                  000fe81c         1   data ,g         * 
   _RX1_BUFFER_COUNT
-                                  000fe8ad         1   data ,g         * 
+                                  000fe81d         1   data ,g         * 
   _TX1_BUFFER_COUNT
-                                  000fe8ae         1   data ,g         * 
+                                  000fe81e         1   data ,g         * 
   _MAIN_RX_STORE_COUNT
-                                  000fe8af         1   data ,g         * 
+                                  000fe81f         1   data ,g         * 
   _END_OF_RESPONSE
-                                  000fe8b0         1   data ,g         * 
+                                  000fe820         1   data ,g         * 
   _END_OF_RESPONSE1
-                                  000fe8b1         1   data ,g         * 
+                                  000fe821         1   data ,g         * 
 FILE=DefaultBuild\quecktel.obj
-                                  000fe8b2  000fe957        a6
+                                  000fe822  000fe8c7        a6
   _at_commands
-                                  000fe8b2        2c   data ,g         * 
+                                  000fe822        2c   data ,g         * 
   _COMMON_RESPONSE
-                                  000fe8de         6   data ,g         * 
+                                  000fe84e         6   data ,g         * 
   _EDRX_RESPONSE
-                                  000fe8e4         4   data ,g         * 
+                                  000fe854         4   data ,g         * 
   _SIM_QUERRY_RESPONSE
-                                  000fe8e8         c   data ,g         * 
+                                  000fe858         c   data ,g         * 
   _NETWORK_OPERATOR_STSTUS
-                                  000fe8f4         2   data ,g         * 
+                                  000fe864         2   data ,g         * 
   _NETWORK_REGI_STATUS
-                                  000fe8f6        24   data ,g         * 
+                                  000fe866        24   data ,g         * 
   _OPERATOR_STATUS
-                                  000fe91a        3c   data ,g         * 
+                                  000fe88a        3c   data ,g         * 
   _TCP_ALIVE
-                                  000fe956         2   data ,g         * 
+                                  000fe8c6         2   data ,g         * 
 FILE=DefaultBuild\quecktel_users.obj
-                                  000fe958  000fe959         2
+                                  000fe8c8  000fe8c9         2
   _Sting_index
-                                  000fe958         2   data ,g         * 
+                                  000fe8c8         2   data ,g         * 
 FILE=DefaultBuild\csq.obj
-                                  000fe95a  000feba9       250
+                                  000fe8ca  000feb19       250
   _SIGNAL_QUALITY
-                                  000fe95a       250   data ,g         * 
+                                  000fe8ca       250   data ,g         * 
 
 Absolute value symbols
 FILE=rlink_generates_05
   __s.text
-                                  000004a6         0   none ,g         * 
+                                  0000042e         0   none ,g         * 
   __e.text
-                                  00000757         0   none ,g         * 
+                                  000006ac         0   none ,g         * 
   __s.textf
-                                  00000757         0   none ,g         * 
+                                  000006ac         0   none ,g         * 
   __e.textf
-                                  00000ff1         0   none ,g         * 
+                                  00000f69         0   none ,g         * 
   __s.const
                                   00002000         0   none ,g         * 
   __e.const
@@ -590,7 +574,7 @@ FILE=rlink_generates_05
   __s.data
                                   000000d8         0   none ,g         * 
   __e.data
-                                  000004a6         0   none ,g         * 
+                                  0000042e         0   none ,g         * 
   __s.sdata
                                   00000080         0   none ,g         * 
   __e.sdata
@@ -598,15 +582,15 @@ FILE=rlink_generates_05
   __s.bss
                                   000fdf00         0   none ,g         * 
   __e.bss
-                                  000fe7dc         0   none ,g         * 
+                                  000fe7c4         0   none ,g         * 
   __s.sbss
                                   000ffe20         0   none ,g         * 
   __e.sbss
                                   000ffe20         0   none ,g         * 
   __s.dataR
-                                  000fe7dc         0   none ,g         * 
+                                  000fe7c4         0   none ,g         * 
   __e.dataR
-                                  000febaa         0   none ,g         * 
+                                  000feb1a         0   none ,g         * 
   __s.sdataR
                                   000ffe20         0   none ,g         * 
   __e.sdataR
@@ -650,7 +634,7 @@ FILE=rlink_generates_05
   __STACK_ADDR_START
                                   000ffe20         0   none ,g         * 
   __STACK_ADDR_END
-                                  000febaa         0   none ,g         * 
+                                  000feb1a         0   none ,g         * 
 
 *** Unfilled Areas ***
 

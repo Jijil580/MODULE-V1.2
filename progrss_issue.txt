@@ -47,4 +47,6 @@ date:23/1/2025
 status :
 signal qulity checks completed.
 mcu rest issue not solved
+wdtcreate commented in system init
 
+decide to send same data from meter code and test 0n 24/1/2025 for resting while meter communication

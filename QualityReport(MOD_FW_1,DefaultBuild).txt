@@ -1,66 +1,13 @@
 QualityReport
-23 January 2025 16:22:32
+25 January 2025 14:44:35
 
 ------ Start build(MOD_FW_1, DefaultBuild) ------
 ------ Build ended(Error:0, Warning:0)(MOD_FW_1, DefaultBuild) ------
-C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\Bin\ccrl.exe quecktel.c -cpu=S3 -o DefaultBuild\quecktel.obj "-dev=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF" -g -g_line -I cg_src -I . -c -msg_lang=english
-C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\Bin\ccrl.exe csq.c -cpu=S3 -o DefaultBuild\csq.obj "-dev=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF" -g -g_line -I cg_src -I . -c -msg_lang=english
-C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\Bin\rlink.exe -subcommand=DefaultBuild\MOD_FW_1.clnk
-RAMDATA SECTION:  00000caa Byte(s)
-ROMDATA SECTION:  000026fb Byte(s)
-PROGRAM SECTION:  00003337 Byte(s)
-Renesas Optimizing Linker Completed
-
---- CommandFile 1 ---
-DefaultBuild\MOD_FW_1.clnk :
--Input=DefaultBuild\cstart.obj
--Input=DefaultBuild\stkinit.obj
--Input=DefaultBuild\r_cg_main.obj
--Input=DefaultBuild\r_cg_systeminit.obj
--Input=DefaultBuild\r_cg_cgc.obj
--Input=DefaultBuild\r_cg_cgc_user.obj
--Input=DefaultBuild\r_cg_port.obj
--Input=DefaultBuild\r_cg_port_user.obj
--Input=DefaultBuild\r_cg_tau.obj
--Input=DefaultBuild\r_cg_tau_user.obj
--Input=DefaultBuild\r_cg_sau.obj
--Input=DefaultBuild\r_cg_sau_user.obj
--Input=DefaultBuild\r_cg_wdt.obj
--Input=DefaultBuild\r_cg_wdt_user.obj
--Input=DefaultBuild\quecktel.obj
--Input=DefaultBuild\quecktel_users.obj
--Input=DefaultBuild\csq.obj
--SECURITY_ID=00000000000000000000
--DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF
--DEBug
--NOCOmpress
--NOOPtimize
--OUtput=DefaultBuild\MOD_FW_1.abs
--OCDBG=84
--DEBUG_MONITOR=1FE00-1FFFF
--USER_OPT_BYTE=FFFFE0
--LISt=DefaultBuild\MOD_FW_1.map
--SHow=SYmbol,Total_size
--AUTO_SECTION_LAYOUT
--ROm=.data=.dataR
--ROm=.sdata=.sdataR
--NOMessage
--STACk
--Total_size
--NOLOgo
--LIBrary=DefaultBuild\MOD_FW_1.lib
--end
--Input=DefaultBuild\MOD_FW_1.abs
--DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF
--OUtput=DefaultBuild\MOD_FW_1.mot
--FOrm=Stype
--NOMessage
--exit
 
 
 --- SHA1 hash value of output files ---
-D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.abs: 074a625953d8859fb85c647733ff10ae8a420cfa
-D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.mot: e6c2f8f97af79b1ce84666ec8cd63d3011cdbe05
+D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.abs: 7917392608181a028ae97e495b7def7f73322337
+D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.mot: 5e978ccb331de81902639db2fc0eb929edddf917
 
 
 --- System Information ---
@@ -86,13 +33,13 @@ D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.mot: e6c2f8f97af79b1ce846
  C:\Program Files (x86)\Renesas Electronics\CS+\CC
 *Memory Usage
  *Private Working Set
-  601 MB
+  684 MB
  *Number of GDI Objects
-  2372
+  2393
  *Number of USER Objects
-  1262
+  1274
  *Opened Files
-  13 editors, 13 files, 81 KB
+  16 editors, 16 files, 131 KB
 
 --- Build Tool Plug-in Information ---
 RH850 Build tool CC-RH Plug-in

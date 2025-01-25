@@ -86,65 +86,40 @@ extern volatile uint16_t  g_uart1_rx_length;           /* uart1 receive data len
  extern uint8_t MAIN_RX_STORE_COUNT=0;
  uint8_t END_OF_RESPONSE=0;
  uint8_t END_OF_RESPONSE1=0;
+ uint8_t HANDLING_METER_DATA;
  //uint8_t MAIN_RX_STORE[512];
  uint8_t final_buffer[512]; // Adjust size as per your needs
-  //int START_TIMER=0;
-/***********************************************************************************************************************
-* Function Name: r_uart0_interrupt_receive
-* Description  : None
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
+/********************************************************************************************/
 
+
+static volatile uint32_t last_rx_time = 0;  // Stores last received time
+static volatile uint32_t system_tick = 0;   // Increment this in main loop or ISR
 
 static void __near r_uart0_interrupt_receive(void)
 {
-  
-
-	  
-   volatile uint8_t rx_data;
-   volatile uint8_t err_type;
- 
- 
+    volatile uint8_t rx_data;
+    volatile uint8_t err_type;
     
     err_type = (uint8_t)(SSR01 & 0x0007U);
     SIR01 = (uint16_t)err_type;
 
     if (err_type != 0U)
-      {
+    {
         r_uart0_callback_error(err_type);
-      }
-    
-    rx_data = RXD0;
-  
-     if((TIMER1_COUNT==0)&&(START_TIMER==0)&&(MODULE_MODE==TCP_MODE))
-      
-	       {
-		 timer1_Start();
-	
-		  METER_DATA=0;
-		  START_TIMER=1;
-	       }
-	       else if((TIMER_COUNT==0)&&(MODULE_MODE==INIT_MODE ))
-	       {
-		       R_TAU0_Channel0_Start();
-		       METER_DATA=0;
-	       }
-
-             
-            		RX0_BUFFER[RX0_BUFFER_COUNT]= rx_data;
-	      		
-	   		RX0_BUFFER_COUNT++;
-		
-     
-	                 R_WDT_Restart();
-	
-        
-    
-      
-    
+    }
    
-  }
+       rx_data = RXD0;
+
+   
+        RX0_BUFFER[RX0_BUFFER_COUNT] = rx_data;
+        RX0_BUFFER_COUNT++;
+    
+        METER_DATA=0;
+	TCP_DATA=1;
+        DATA_RECIEVED=1;
+    
+}
+
   
 
 
@@ -247,13 +222,7 @@ static void __near r_uart1_interrupt_receive(void)
     
     rx_data = RXD1;
     
- 
-	if(TIMER_COUNT==0)
-	{
-            	timer1_Start(); 
-	     	METER_DATA=1;
-	 }
-
+	
 	
       	if (RX1_BUFFER_COUNT < 512) 
 	{
@@ -261,16 +230,10 @@ static void __near r_uart1_interrupt_receive(void)
 	
 	   	RX1_BUFFER_COUNT++;
 	}
-	
-//	if(RX1_BUFFER_COUNT==51)
-//	{
-//		  timer1_Stop();
-//           TCP_DATA=0;
-//           TIMER1_COUNT=0;
-//	   DATA_RECIEVED=1;
-//	   START_TIMER=0;
-		
-//	}
+ 	
+ 	METER_DATA=1;
+	TCP_DATA=0;
+ 	DATA_RECIEVED=1;
 	
 }
 /***********************************************************************************************************************
@@ -286,21 +249,17 @@ static void __near r_uart1_interrupt_send(void)
         TXD1 = *gp_uart1_tx_address;
         gp_uart1_tx_address++;
         g_uart1_tx_count--;
+	R_WDT_Restart();
     }
     else
     {
-	//memset(UART0_RECIEVED_DATA,0,512);
+	
 	memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
-	//memset(RX1_BUFFER,0,sizeof(RX1_BUFFER));
-	//memset(MAIN_RX_STORE,0,512);
-	//memset(final_buffer,0,512);
-//	 memset(URC_BUFFER,0,100);
 	RX0_BUFFER_COUNT=0;
 	RX1_BUFFER_COUNT=0;
 	MAIN_RX_STORE_COUNT=0;
 	LINE_END_COUNT=0;
         g_uart0_rx_count=0;
-        //r_uart1_callback_sendend();
 	STMK1 = 1U; 
     }
 }

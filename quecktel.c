@@ -83,15 +83,9 @@ const char *NETWORK_OPERATOR_STSTUS[]=
 
 	
 };
+	
+	
 
-//const char *PDP_CONTEXT_STATUS[]=
-//{
-//	"\r\n+QIACT: 1,1,2,\"2401:4900:9831:FD7B::2\"\r\n\r\nOK\r\n"
-
-	
-	
-	
-////};
 const char *NETWORK_REGI_STATUS[]=
 {
 	"\r\n+CREG: 0,0\r\n\r\nOK\r\n",////- <CR><LF>+CREG: 0,1<CR><LF><CR><LF>OK<CR><LF>
