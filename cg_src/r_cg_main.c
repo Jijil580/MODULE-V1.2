@@ -18,7 +18,10 @@ date           : sept 2024
 #include "string.h"
 #include "quecktel.h"
 #include "r_cg_userdefine.h"
+#include "simstatus.h"
+#include "networkstatus.h"
 
+#define WAIT_TIME 100000
   /*global variables*/
   
 uint8_t TCP_CLOSE[]="AT+QICLOSE=1\r";
@@ -40,7 +43,9 @@ unsigned long int WAIT_COUNT=0;
 
  /*FUNCTION DECLARATION*/
  
+void TURN_ON_MODULE(void);
 void Initialize_Module(void);
+uint8_t WAIT_RECEPTION_TO_COMPLETE(void);
 static void R_MAIN_UserInit(void);
 void FETCH_METERDATA_AND_SEND(void);
 extern void __delay_ms(unsigned int milliseconds);
@@ -82,18 +87,10 @@ uint8_t READ_RESF=0;
 -----------------------------------------------------------------------------------------------------------------------*/
 void main(void)
 {
-	READ_RESF=RESF;    //reset flag register
+	
     	R_MAIN_UserInit();
-    	R_UART0_Start();
-    	R_UART1_Start();
-  
-    	P7&=~(1<<2);     //MODULE RESET
-    	P7|=(1<<1);      //MODULE ON
-    	P7 |=(1<<3);     //POWERKEY ON
-    	__delay_ms(1000);//2S delay between POWERKEY ON&POWERKEY OFF 
-    	__delay_ms(1000);//POWERKEY OFF
-     	P7&=~(1<<3);
-    	__delay_ms(500);
+        TURN_ON_MODULE();
+   
 	while (1U)
     	{
     		R_WDT_Restart();
@@ -101,7 +98,7 @@ void main(void)
 		{       
 		/*INIT MODE*/
 			WAIT_RECEPTION_TO_COMPLETE();
-			if(WAIT_COUNT>300000)
+			if(WAIT_COUNT>WAIT_TIME)
 				{
 		         	WAIT_COUNT=0;
 		         	TCP_INIT_STATUS= INIT_MODULE_TO_TCP_LISTENMODE();
@@ -148,12 +145,8 @@ void main(void)
 			}
 			
 	       	}//if data recievd end
-
-	    
 	
-	}//if tcp mode end
-	
-        ;
+	}//if tcp mode end;
 	
       }//while loop end
    
@@ -238,7 +231,7 @@ void FETCH_TCP_DATA(void)
 	  		break;
 		}
 		if(RX0_BUFFER[i]=='f'&&RX0_BUFFER[i+1]=='u'&&
-		RX0_BUFFER[i+2]=='l'&&RX0_BUFFER[i+3]=='l')  // check "incoming full" if true 
+		RX0_BUFFER[i+2]=='l'&&RX0_BUFFER[i+3]=='l')  // check "incoming full" if true reinit tcplistenmode
 		{
           		MODULE_MODE=0;//*INIT mode
 	  		AT_COMMAND_COUNT=21;//at command_count for listen mode
@@ -324,7 +317,7 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
 		}
 		case 7:
 		{
-			COMPARE_MATCH1= Check_SIM_status(RESPONSE);
+			COMPARE_MATCH1=  Check_SIM_status(RESPONSE);
 
 			 break;
 		}
@@ -341,7 +334,7 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
 		 
 		 case 10:
 		{
-			COMPARE_MATCH1= Ceck_Network_Reg_status(RESPONSE);
+			COMPARE_MATCH1= Check_Network_Reg_status(RESPONSE);
 			 break;
 		}
 		 case 11:
@@ -412,7 +405,7 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
 * Arguments    : none
 * Return Value :return  1
 --------------------------------------------------------------------------------------------------------------------*/
-uint8_t WAIT_RECEPTION_TO_COMPLETE()
+uint8_t WAIT_RECEPTION_TO_COMPLETE(void)
 {
 	
 	WAIT_COUNT++;
@@ -420,10 +413,24 @@ uint8_t WAIT_RECEPTION_TO_COMPLETE()
 	return 1;
 	
 }
+void TURN_ON_MODULE(void)
+{
+	P7&=~(1<<2);     //MODULE RESET
+    	P7|=(1<<1);      //MODULE ON
+    	P7 |=(1<<3);     //POWERKEY ON
+    	__delay_ms(1000);//2S delay between POWERKEY ON&POWERKEY OFF 
+    	__delay_ms(1000);//POWERKEY OFF
+     	P7&=~(1<<3);
+    	__delay_ms(500);
+}
+
+
 static void R_MAIN_UserInit(void)
 {
-   
-    EI();
+        READ_RESF=RESF;    //reset flag register
+    	EI();
+    	R_UART0_Start();
+    	R_UART1_Start();
    
 }
 

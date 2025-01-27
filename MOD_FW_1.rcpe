@@ -36,6 +36,10 @@
         <Path>quecktel.c</Path>
         <Path>quecktel_users.c</Path>
         <Path>csq.c</Path>
+        <Path>simstastus.c</Path>
+        <Path>simstatus.h</Path>
+        <Path>networkstatus.c</Path>
+        <Path>networkstatus.h</Path>
       </Category>
       <Path>progrss_issue.txt</Path>
     </Files>
@@ -66,6 +70,8 @@
           <Path>DefaultBuild\quecktel.obj</Path>
           <Path>DefaultBuild\quecktel_users.obj</Path>
           <Path>DefaultBuild\csq.obj</Path>
+          <Path>DefaultBuild\simstastus.obj</Path>
+          <Path>DefaultBuild\networkstatus.obj</Path>
         </LinkOrder>
         <CommonOptions>
           <IncludePathForC>cg_src</IncludePathForC>
@@ -162,9 +168,9 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior25_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior07_pior00_macroname" value=""&gt;
-    &lt;/DataElement&gt;
     &lt;DataElement key="pior01_macroname" value=""&gt;
+    &lt;/DataElement&gt;
+    &lt;DataElement key="pior23" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -210,7 +216,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior23" value="0"&gt;
+    &lt;DataElement key="pior07_pior00_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior03" value="0"&gt;
     &lt;/DataElement&gt;

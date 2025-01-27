@@ -61,20 +61,6 @@ const char *EDRX_RESPONSE[]=
 	"\r\nERROR\r\n"
 };
 
-const char *SIM_QUERRY_RESPONSE[]=
-{
-	"\r\n+CPIN: READY\r\n\r\nOK\r\n",
-	
-	"\r\n+CPIN: SIM PIN\r\n\r\nOK\r\n",
-	
-	"\r\n+CPIN: SIM PUK\r\n\r\nOK\r\n",
-	
-	"\r\n+CPIN: SIM PIN2\r\n\r\nOK\r\n",
-	
-	"\r\n+CPIN: SIM PUK2\r\n\r\nOK\r\n",
-	"\r\nERROR\r\n"
-	
-};
 
 
 const char *NETWORK_OPERATOR_STSTUS[]=
