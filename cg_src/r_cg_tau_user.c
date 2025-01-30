@@ -107,25 +107,14 @@ static void __near r_tau0_channel1_interrupt(void)
 {
 	 TIMER1_COUNT++;
 	 R_WDT_Restart();
-	   if(TIMER1_COUNT>=1&&TCP_INIT_STATUS==1&&METER_DATA==1)///DATA FROM METER RECVD
+	   if(TIMER1_COUNT>=1)///DATA RECIEVED
 	  {
            timer1_Stop();
-           TCP_DATA=0;
-           TIMER1_COUNT=0;
-	   DATA_RECIEVED=1;
-	   START_TIMER=0;
+           DATA_RECIEVED=1;
+	   TIMER1_COUNT=0;
 	   
 	   }
-	   if(TIMER1_COUNT>=1&&TCP_INIT_STATUS==1&&METER_DATA==0)///TCP DATA RECVD
-	  {
-           timer1_Stop();
-           TCP_DATA=1;
-           TIMER1_COUNT=0;
-	   DATA_RECIEVED=1;
-	   timer1_Stop();
-	   START_TIMER=0;
-	   METER_DATA=0;
-	   }
+	
 	
 }
 

@@ -50,3 +50,13 @@ mcu rest issue not solved
 wdtcreate commented in system init
 
 decide to send same data from meter code and test 0n 24/1/2025 for resting while meter communication
+
+date 27/1/25
+created seperate files 
+simststus
+networkstatus
+cmeerror
+operatorstatus
+
+
+

@@ -66,17 +66,6 @@ uint8_t Check_EDRX_Status(uint8_t *RESPONSE)
 }
 
 
-
-
-
-uint8_t Check_Operator_Status(uint8_t *RESPONSE)
-{
-   if (strncmp((char *)RESPONSE, OPERATOR_STATUS[0], strlen(OPERATOR_STATUS[0])) == 0)
-	 {
-	 	return 1; 	 
-         }	
-	 return 0;
-}
 uint8_t Check_Signal_Quality(uint8_t *RESPONSE)
 {
 	 for(Sting_index=0;Sting_index<=288;Sting_index++)

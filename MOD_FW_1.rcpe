@@ -40,6 +40,10 @@
         <Path>simstatus.h</Path>
         <Path>networkstatus.c</Path>
         <Path>networkstatus.h</Path>
+        <Path>cmeerror.c</Path>
+        <Path>cmeerror.h</Path>
+        <Path>operatorstatus.c</Path>
+        <Path>operatorstatus.h</Path>
       </Category>
       <Path>progrss_issue.txt</Path>
     </Files>
@@ -72,6 +76,8 @@
           <Path>DefaultBuild\csq.obj</Path>
           <Path>DefaultBuild\simstastus.obj</Path>
           <Path>DefaultBuild\networkstatus.obj</Path>
+          <Path>DefaultBuild\cmeerror.obj</Path>
+          <Path>DefaultBuild\operatorstatus.obj</Path>
         </LinkOrder>
         <CommonOptions>
           <IncludePathForC>cg_src</IncludePathForC>
@@ -141,6 +147,18 @@
           <CompileOptions>
             <Option>-cpu=S3</Option>
             <Option>-o %BuildModeName%\quecktel_users.obj</Option>
+            <Option>-dev=%MicomToolPath%\Device\RL78\Devicefile\DR5F11TLG.DVF</Option>
+            <Option>-g</Option>
+            <Option>-g_line</Option>
+            <Option>-I cg_src</Option>
+            <Option>-I .</Option>
+            <Option>-c</Option>
+          </CompileOptions>
+        </IndividualOptions>
+        <IndividualOptions Target="csq.c">
+          <CompileOptions>
+            <Option>-cpu=S3</Option>
+            <Option>-o %BuildModeName%\csq.obj</Option>
             <Option>-dev=%MicomToolPath%\Device\RL78\Devicefile\DR5F11TLG.DVF</Option>
             <Option>-g</Option>
             <Option>-g_line</Option>

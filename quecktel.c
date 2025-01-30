@@ -1,4 +1,11 @@
 #include "quecktel.h"
+#include "simstatus.h"
+#include "networkstatus.h"
+#include "operatorstatus.h"
+
+
+uint8_t AT_COMMAND_COUNT=0;
+uint8_t COMPARE_MATCH1=0;
 
  const char *at_commands[] = {
     "ATI\r\n",                                         //:0
@@ -62,86 +69,147 @@ const char *EDRX_RESPONSE[]=
 };
 
 
-
-const char *NETWORK_OPERATOR_STSTUS[]=
-{
-	"\r\n+COPS: 0,0,\"IND airtel\",7\r\n\r\nOK\r\n",
-
-	
-};
-	
-	
-
-const char *NETWORK_REGI_STATUS[]=
-{
-	"\r\n+CREG: 0,0\r\n\r\nOK\r\n",////- <CR><LF>+CREG: 0,1<CR><LF><CR><LF>OK<CR><LF>
-
-	"\r\n+CREG: 0,1\r\n\r\nOK\r\n",
-	"\r\n+CREG: 0,2\r\n\r\nOK\r\n",
-	"\r\n+CREG: 0,3\r\n\r\nOK\r\n",
-	"\r\n+CREG: 0,4\r\n\r\nOK\r\n",
-	"\r\n+CREG: 0,5\r\n\r\nOK\r\n",
-	
-	"\r\n+CREG: 1,0\r\n\r\nOK\r\n",
-	"\r\n+CREG: 1,1\r\n\r\nOK\r\n",
-	"\r\n+CREG: 1,2\r\n\r\nOK\r\n",
-	"\r\n+CREG: 1,3\r\n\r\nOK\r\n",
-	"\r\n+CREG: 1,4\r\n\r\nOK\r\n",
-	"\r\n+CREG: 1,5\r\n\r\nOK\r\n",
-	
-	"\r\n+CREG: 2,0\r\n\r\nOK\r\n",
-	"\r\n+CREG: 2,1\r\n\r\nOK\r\n",
-	"\r\n+CREG: 2,2\r\n\r\nOK\r\n",
-	"\r\n+CREG: 2,3\r\n\r\nOK\r\n",
-	"\r\n+CREG: 2,4\r\n\r\nOK\r\n",
-	"\r\n+CREG: 2,5\r\n\r\nOK\r\n"  
-
-	
-};
-const char *OPERATOR_STATUS[]=
-{
-	"\r\n+COPS: 0,0,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 0,0,\"IND airtel\",7\r\n\r\nOK\r\n",
-	"\r\n+COPS: 0,1,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 0,1,\"IND airtel\",7\r\n\r\nOK\r\n",
-	"\r\n+COPS: 0,2,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 0,2,\"IND airtel\",7\r\n\r\nOK\r\n",
-	
-	"\r\n+COPS: 1,0,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 1,0,\"IND airtel\",7\r\n\r\nOK\r\n",
-	"\r\n+COPS: 1,1,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 1,1,\"IND airtel\",7\r\n\r\nOK\r\n",
-	"\r\n+COPS: 1,2,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 1,2,\"IND airtel\",7\r\n\r\nOK\r\n",
-	
-	"\r\n+COPS: 2,0,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 2,0,\"IND airtel\",7\r\n\r\nOK\r\n",
-	"\r\n+COPS: 2,1,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 2,1,\"IND airtel\",7\r\n\r\nOK\r\n",
-	"\r\n+COPS: 2,2,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 2,2,\"IND airtel\",7\r\n\r\nOK\r\n",
-	
-	"\r\n+COPS: 3,0,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 3,0,\"IND airtel\",7\r\n\r\nOK\r\n",
-	"\r\n+COPS: 3,1,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 3,1,\"IND airtel\",7\r\n\r\nOK\r\n",
-	"\r\n+COPS: 3,2,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 3,2,\"IND airtel\",7\r\n\r\nOK\r\n",
-	
-        "\r\n+COPS: 3,0,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 3,0,\"IND airtel\",7\r\n\r\nOK\r\n",
-	"\r\n+COPS: 3,1,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 3,1,\"IND airtel\",7\r\n\r\nOK\r\n",
-	"\r\n+COPS: 3,2,\"IND airtel\",0\r\n\r\nOK\r\n",
-	"\r\n+COPS: 3,2,\"IND airtel\",7\r\n\r\nOK\r\n"
-
-	
-};
-
 const char *TCP_ALIVE[]=
 {
 	"\r\n+QICFG: \"tcp/keepalive\",0\r\n\r\nOK\r\n"
 
 	
 };
+/*-------------------------------------------------------------------------------------------------------------------/
+* Function Name: CHECK_MODULE_RESPONSE
+* Description  : This function checks the response is matching as expected from the module
+* Arguments    : response
+* Return Value :return 0 or 1
+--------------------------------------------------------------------------------------------------------------------*/
+uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
+{
+	switch (AT_COMMAND_COUNT)
+	{
+		case 0:
+		{
+			COMPARE_MATCH1=CHECK_OK_RESPONSE(RESPONSE);
 
+			 break;
+		}
+		case 1:
+		{
+			COMPARE_MATCH1=Check_Common_Response(RESPONSE);
+
+			 break;
+		}
+		case 2:
+		{
+			
+			COMPARE_MATCH1=Check_Common_Response(RESPONSE);
+
+			 break;
+		}
+		case 3:
+		{
+			
+			COMPARE_MATCH1=Check_Common_Response(RESPONSE);
+
+			 break;
+		}
+	        case 4:
+		{
+			COMPARE_MATCH1=Check_EDRX_Status(RESPONSE);
+			
+			break;
+		}
+		case 5:
+		{
+			COMPARE_MATCH1=Check_Common_Response(RESPONSE);
+
+			 break;
+		}
+		case 6:
+		{
+			COMPARE_MATCH1=Check_Common_Response(RESPONSE);
+
+			 break;
+		}
+		case 7:
+		{
+			COMPARE_MATCH1=  Check_SIM_status(RESPONSE);
+
+			 break;
+		}
+		case 8:
+		{
+			COMPARE_MATCH1=CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 9:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		 
+		 case 10:
+		{
+			COMPARE_MATCH1= Check_Network_Reg_status(RESPONSE);
+			 break;
+		}
+		 case 11:
+		{
+			COMPARE_MATCH1= Check_Common_Response(RESPONSE);
+			 break;
+		}
+		 case 12:
+		{
+			COMPARE_MATCH1= Check_Common_Response(RESPONSE);
+			 break;
+		}
+	         case 13:
+		{
+			COMPARE_MATCH1= Check_Operator_Status(RESPONSE);
+			 break;
+		}
+		case 14:
+		{
+			COMPARE_MATCH1=Check_Signal_Quality(RESPONSE);
+			 break;
+		}
+		case 15:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 16:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 17:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 18:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 19:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 20:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+		case 21:
+		{
+			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			 break;
+		}
+	
+		
+	}
+	
+   	return COMPARE_MATCH1; // No match found
+
+}

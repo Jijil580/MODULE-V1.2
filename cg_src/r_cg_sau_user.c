@@ -66,8 +66,8 @@ extern volatile uint8_t * gp_uart1_rx_address;         /* uart1 receive buffer a
 extern volatile uint16_t  g_uart1_rx_count;            /* uart1 receive data number */
 extern volatile uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
 /* Start user code for global. Do not edit comment generated here */
-
- #define READ_RECIEVED_DATA                                 "AT+QIRD=0,READ_SIZE\r\n"  
+int TX_RX;
+ #define READ_RECIEVED_DATA  "AT+QIRD=0,READ_SIZE\r\n"  
 /* End user code. Do not edit comment generated here */
  uint8_t LINE_END_COUNT=0;
  uint8_t URC_COUNT=0;
@@ -109,7 +109,11 @@ static void __near r_uart0_interrupt_receive(void)
     }
    
        rx_data = RXD0;
-
+       //if(METER_DATA==1)
+       //timer1_Start();
+       //else if(MODULE_MODE==INIT_MODE)
+        //DATA_RECIEVED=1;
+       
    
         RX0_BUFFER[RX0_BUFFER_COUNT] = rx_data;
         RX0_BUFFER_COUNT++;
@@ -199,6 +203,7 @@ static void r_uart0_callback_sendend(void)
 static void r_uart0_callback_error(uint8_t err_type)
 {
     /* Start user code. Do not edit comment generated here */
+ 
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -222,7 +227,8 @@ static void __near r_uart1_interrupt_receive(void)
     
     rx_data = RXD1;
     
-	
+        //if(METER_DATA==0)
+	//timer1_Start();
 	
       	if (RX1_BUFFER_COUNT < 512) 
 	{
@@ -233,7 +239,7 @@ static void __near r_uart1_interrupt_receive(void)
  	
  	METER_DATA=1;
 	TCP_DATA=0;
- 	DATA_RECIEVED=1;
+ 	 DATA_RECIEVED=1;
 	
 }
 /***********************************************************************************************************************
@@ -256,7 +262,7 @@ static void __near r_uart1_interrupt_send(void)
 	
 	memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
 	RX0_BUFFER_COUNT=0;
-	RX1_BUFFER_COUNT=0;
+	//RX1_BUFFER_COUNT=0;
 	MAIN_RX_STORE_COUNT=0;
 	LINE_END_COUNT=0;
         g_uart0_rx_count=0;
@@ -310,6 +316,7 @@ static void r_uart1_callback_sendend(void)
 static void r_uart1_callback_error(uint8_t err_type)
 {
     /* Start user code. Do not edit comment generated here */
+    TX_RX=1;
     /* End user code. Do not edit comment generated here */
 }
 
