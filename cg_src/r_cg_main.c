@@ -22,8 +22,9 @@ date           : sept 2024
 #include "networkstatus.h"
 #include "operatorstatus.h"
 
-#define WAIT_TIME 100000
-#define MODULE_INIT_TIME 100000
+#define WAIT_TIME 300000
+#define MODULE_INIT_TIME 20000
+#define SECONDS_30  (TIMER_COUNT==30)
   /*global variables*/
   
 uint8_t TCP_CLOSE[]="AT+QICLOSE=1\r";
@@ -37,6 +38,7 @@ uint8_t at_command[30];
 uint8_t BUF_FLAG=0;
 int temp_index=0;
 int data_intex=0;
+int RETRY_COUNT=0;
 uint8_t MODULE_MODE=0;
 uint8_t TCP_DATA_PROCESSED=0;
 uint8_t TCP_DATA=0;
@@ -48,6 +50,7 @@ unsigned long int WAIT_COUNT=0;
  
 void TURN_ON_MODULE(void);
 void Initialize_Module(void);
+void CHECK_MODULE_STATUS(void);
 uint8_t WAIT_RECEPTION_TO_COMPLETE(void);
 static void R_MAIN_UserInit(void);
 void FETCH_METERDATA_AND_SEND(void);
@@ -82,10 +85,11 @@ void main(void)
 	
     	R_MAIN_UserInit();
         TURN_ON_MODULE();
-   
+        //R_TAU0_Channel0_Start();
 	while (1U)
     	{
     		R_WDT_Restart();
+		
 		if(MODULE_MODE==INIT_MODE&&DATA_RECIEVED==1)
 		{       
 		/*INIT MODE*/
@@ -112,6 +116,7 @@ void main(void)
                				if(METER_DATA==1&&TCP_DATA==0)
 	      	        		{
 				 	/*data recieved over meter*/
+				
 						FETCH_METERDATA_AND_SEND();
 						METER_DATA=1;
 				
@@ -135,13 +140,24 @@ void main(void)
 		
 		
 	       			 	}
-			}
+				}
 			
-	       	}//if data recievd end
+	       		}//if data recievd end
 	
-	}//if tcp mode end;
+		}//if tcp mode end;
+//		if(SECONDS_30&&DATA_RECIEVED==0)
+//		{ 
+//			MODULE_MODE=CHECK_MODE;
+			
+//		}
+		
+//		if(MODULE_MODE==CHECK_MODE)
+//		{
+			
+//		}
 	
-      }//while loop end
+	
+      	}//while loop end
    
 }//main end
 
@@ -163,12 +179,19 @@ uint8_t INIT_MODULE_TO_TCP_LISTENMODE(void)
         		AT_COMMAND_COUNT++; // Increment `TCP_INT_FLAG`
 			COMPARE_MATCH1=0;
 		}
+		else
+		RETRY_COUNT++;
+		
         	DATA_RECIEVED = 0; // Reset flag
         	memset(RX0_BUFFER, 0, 200); // Clear buffer
         	RX0_BUFFER_COUNT = 0; // Reset buffer count
 
         	if (AT_COMMAND_COUNT<=22) 
-       		{
+       		{       if(RETRY_COUNT==10)
+		        {
+		        AT_COMMAND_COUNT=0;
+			RETRY_COUNT=0;
+			}
          	 	R_UART0_Send(at_commands[AT_COMMAND_COUNT], strlen(at_commands[AT_COMMAND_COUNT])); // Send AT command
 		 	TCP_INIT_STATUS=0;
 		 	MODULE_MODE=0;
@@ -191,14 +214,14 @@ uint8_t INIT_MODULE_TO_TCP_LISTENMODE(void)
 --------------------------------------------------------------------------------------------------------------------*/
 void FETCH_METERDATA_AND_SEND(void)
 {
-        uint8_t data_length=0;
+        uint16_t data_length=0;
 	DATA_RECIEVED=0;
 	//METER_DATA=0;
 	RX1_BUFFER[RX1_BUFFER_COUNT]='\0';
 	data_length=RX1_BUFFER_COUNT;
 	sprintf(at_command, "AT+QISEND=%u,%u\r\n", 11,data_length);//CREATE AT COMMAND FOR SEND over TCP
 	R_UART0_Send(at_command,strlen(at_command));
-	__delay_ms(100);
+	__delay_ms(30);
 	R_UART0_Send(RX1_BUFFER,data_length);
 	MODULE_MODE=1;
 	METER_DATA=1;
@@ -229,6 +252,13 @@ void FETCH_TCP_DATA(void)
 		}
 		if(RX0_BUFFER[i]=='f'&&RX0_BUFFER[i+1]=='u'&&
 		RX0_BUFFER[i+2]=='l'&&RX0_BUFFER[i+3]=='l')  // check "incoming full" if true reinit tcplistenmode
+		{
+          		MODULE_MODE=0;//*INIT mode
+	  		AT_COMMAND_COUNT=21;//at command_count for listen mode
+	  		//break;
+		}
+		if(RX0_BUFFER[i]=='c'&&RX0_BUFFER[i+1]=='l'&&
+		RX0_BUFFER[i+2]=='0'&&RX0_BUFFER[i+3]=='s'&&RX0_BUFFER[i+3]=='e'&&RX0_BUFFER[i+3]=='d')  // check "incoming full" if true reinit tcplistenmode
 		{
           		MODULE_MODE=0;//*INIT mode
 	  		AT_COMMAND_COUNT=21;//at command_count for listen mode
@@ -283,6 +313,27 @@ void TURN_ON_MODULE(void)
      	P7&=~(1<<3); //POWERKEY OFF
     	__delay_ms(500);
 }
+void CHECK_MODULE_STATUS(void)
+{
+	if(DATA_RECIEVED==0)
+	{
+		R_UART0_Send(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT], strlen(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT]));
+		AT_COMMAND_COUNT++;
+	
+	}
+	else if(DATA_RECIEVED==1)
+	{
+		switch(AT_COMMAND_COUNT)
+		{
+			case 0:
+			
+				break;
+			case 1:
+			
+				break;
+		}
+	}
+}
 
 
 static void R_MAIN_UserInit(void)
@@ -293,4 +344,5 @@ static void R_MAIN_UserInit(void)
     	R_UART1_Start();
    
 }
+
 

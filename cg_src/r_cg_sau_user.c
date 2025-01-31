@@ -75,13 +75,13 @@ int TX_RX;
  uint8_t RX0_RECIEVED_STRING_LENGTH;
  uint8_t RX0_BUFFER[512];
  //uint8_t TX0_BUFFER[100];
- uint8_t RX1_BUFFER[512];
+ uint8_t RX1_BUFFER[1024];
 // uint8_t TX1_BUFFER[500];
  //extern uint8_t URC_BUFFER[100];
  uint8_t METER_DATA=0;
  int  RX0_BUFFER_COUNT=0;
  uint8_t TX0_BUFFER_COUNT=0;
- uint8_t RX1_BUFFER_COUNT=0;
+ uint16_t RX1_BUFFER_COUNT=0;
  uint8_t TX1_BUFFER_COUNT=0;
  extern uint8_t MAIN_RX_STORE_COUNT=0;
  uint8_t END_OF_RESPONSE=0;
@@ -230,7 +230,7 @@ static void __near r_uart1_interrupt_receive(void)
         //if(METER_DATA==0)
 	//timer1_Start();
 	
-      	if (RX1_BUFFER_COUNT < 512) 
+      	if (RX1_BUFFER_COUNT < 1000) 
 	{
 	  	RX1_BUFFER[RX1_BUFFER_COUNT]= rx_data;
 	

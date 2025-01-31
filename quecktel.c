@@ -53,13 +53,27 @@ uint8_t COMPARE_MATCH1=0;
     "AT+QIOPEN=1,1,\"TCP LISTENER\",\"::1\",0,4059,1,1\r"//:21
   
 };
+const char *THIRTY_SECONDS_CHECKS[]=
+{  
+	"AT+QISTATE\r",
+	"AT+CSQ\r"
+};
+const char *CHECKS_RESPONSE[]=
+{
+	"TCP",
+	"TCP LISTENER",
+	NULL
+	
+};
+
 
 const char *COMMON_RESPONSE[] =
 {
-   	"\r\nQuectel\r\nEC200U\r\nRevision: EC200UCNAAR03A09M08\r\n\r\nOK\r\n",
+   	
     	"\r\nOK\r\n",
     	"\r\nERROR\r\n"
 };
+
 
 
 const char *EDRX_RESPONSE[]=
@@ -75,6 +89,7 @@ const char *TCP_ALIVE[]=
 
 	
 };
+
 /*-------------------------------------------------------------------------------------------------------------------/
 * Function Name: CHECK_MODULE_RESPONSE
 * Description  : This function checks the response is matching as expected from the module
@@ -213,3 +228,10 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
    	return COMPARE_MATCH1; // No match found
 
 }
+//uint_t Check_30s_Data(const char *RESPONSE) {
+//    for (int i = 0; CHECKS_RESPONSE[i] != NULL; i++) {
+//        if (strstr(received_data, CHECKS_RESPONSE[i]) != NULL) {
+//            printf("Match found: %s\n", CHECKS_RESPONSE[i]);
+//        }
+//    }
+//}

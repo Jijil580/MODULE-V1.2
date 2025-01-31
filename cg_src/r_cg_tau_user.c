@@ -79,13 +79,13 @@ static void __near r_tau0_channel0_interrupt(void)
      //if(METER_DATA==1||METER_DATA==0||TCP_INIT_STATUS==0)
      TIMER_COUNT++;
       //R_WDT_Restart();
-      if(TIMER_COUNT>=1&&TCP_INIT_STATUS==0)///INITIALISING MODULE
-	  {
-           TIMER_COUNT=0;
-	   DATA_RECIEVED=1;
-	   R_TAU0_Channel0_Stop();
+//      if(TIMER_COUNT>=1&&TCP_INIT_STATUS==0)///INITIALISING MODULE
+//	  {
+//           TIMER_COUNT=0;
+//	   DATA_RECIEVED=1;
+//	   R_TAU0_Channel0_Stop();
 	  
-	   }
+//	   }
      
 	 
 	  

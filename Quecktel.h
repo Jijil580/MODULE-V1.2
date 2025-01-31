@@ -8,6 +8,7 @@ extern const char *SIM_QUERRY_RESPONSE[];
 extern const char *NETWORK_REGI_STATUS[];
 extern const char *OPERATOR_STATUS[];
 extern const char *SIGNAL_QUALITY[];
+extern const char *THIRTY_SECONDS_CHECKS[];
 uint8_t Check_Common_Response(uint8_t *RESPONSE);
 extern uint8_t COMPARE_MATCH1;
 extern uint8_t AT_COMMAND_COUNT;

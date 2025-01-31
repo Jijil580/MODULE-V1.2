@@ -1,5 +1,5 @@
 QualityReport
-30 January 2025 11:33:00
+31 January 2025 16:02:20
 
 ------ Start build(MOD_FW_1, DefaultBuild) ------
 C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\Bin\ccrl.exe cg_src\r_cg_main.c -cpu=S3 -o DefaultBuild\r_cg_main.obj "-dev=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF" -g -g_line -I cg_src -I . -c -msg_lang=english
@@ -9,15 +9,16 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\inc\stdint.h(20
 C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\inc\stdint.h(25):W0520301:Typedef name has already been declared (with same type)
 C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\inc\stdint.h(26):W0520301:Typedef name has already been declared (with same type)
 C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\inc\stdint.h(27):W0520301:Typedef name has already been declared (with same type)
-cg_src\r_cg_main.c(172):W0520167:Argument of type "const char *__near" is incompatible with parameter of type "uint8_t *const __near"
-cg_src\r_cg_main.c(199):W0520167:Argument of type "uint8_t __near *" is incompatible with parameter of type "char __far *__near"
-cg_src\r_cg_main.c(200):W0520167:Argument of type "uint8_t __near *" is incompatible with parameter of type "const char __near *__near"
+cg_src\r_cg_main.c(195):W0520167:Argument of type "const char *__near" is incompatible with parameter of type "uint8_t *const __near"
+cg_src\r_cg_main.c(222):W0520167:Argument of type "uint8_t __near *" is incompatible with parameter of type "char __far *__near"
+cg_src\r_cg_main.c(223):W0520167:Argument of type "uint8_t __near *" is incompatible with parameter of type "const char __near *__near"
+cg_src\r_cg_main.c(320):W0520167:Argument of type "const char *__near" is incompatible with parameter of type "uint8_t *const __near"
 C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\Bin\rlink.exe -subcommand=DefaultBuild\MOD_FW_1.clnk
-RAMDATA SECTION:  00000b80 Byte(s)
-ROMDATA SECTION:  00002a92 Byte(s)
-PROGRAM SECTION:  0000337f Byte(s)
+RAMDATA SECTION:  00000d8c Byte(s)
+ROMDATA SECTION:  00002a8a Byte(s)
+PROGRAM SECTION:  0000339d Byte(s)
 Renesas Optimizing Linker Completed
------- Build ended(Error:0, Warning:9)(MOD_FW_1, DefaultBuild) ------
+------ Build ended(Error:0, Warning:10)(MOD_FW_1, DefaultBuild) ------
 
 --- CommandFile 1 ---
 DefaultBuild\MOD_FW_1.clnk :
@@ -71,8 +72,8 @@ DefaultBuild\MOD_FW_1.clnk :
 
 
 --- SHA1 hash value of output files ---
-D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.abs: 64e60c1e1b52f9bcbdf93c66571189ab19db09a1
-D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.mot: aaf26dfac1158d1f6beabe6d65e086aa987ff5ad
+D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.abs: d94e881cb5c6c7270d01ab1427fa12b9d7f49389
+D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.mot: 8aaaaf9491f5c91cbed9b785ed5431e71ce28446
 
 
 --- System Information ---
@@ -98,13 +99,13 @@ D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.mot: aaf26dfac1158d1f6bea
  C:\Program Files (x86)\Renesas Electronics\CS+\CC
 *Memory Usage
  *Private Working Set
-  460 MB
+  544 MB
  *Number of GDI Objects
-  2260
+  2367
  *Number of USER Objects
-  1075
+  1262
  *Opened Files
-  1 editors, 1 files, 8 KB
+  13 editors, 13 files, 113 KB
 
 --- Build Tool Plug-in Information ---
 RH850 Build tool CC-RH Plug-in
@@ -267,8 +268,6 @@ Build Tool Information
 Debug Tool Information
  *RL78 E2 Lite
   Debugger Library V8.12.00.03 [23 May 2024]
-  RL78 E2 Lite Executor V4.13c [14 Mar 2024]
-  E2 Lite 4100 A F/W V07.06
   
 
 Other Tool Information
