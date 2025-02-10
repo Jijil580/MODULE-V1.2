@@ -2,12 +2,15 @@
 #include "simstatus.h"
 #include "networkstatus.h"
 #include "operatorstatus.h"
-
+#include "string.h"
+#include "r_cg_sau.h"
 
 uint8_t AT_COMMAND_COUNT=0;
 uint8_t COMPARE_MATCH1=0;
-
+uint8_t ENABLE_URC[]="AT+CREG=1\r"; 
+                                  
  const char *at_commands[] = {
+ 
     "ATI\r\n",                                         //:0
     
     "ATE0\r\n",                                        //:1
@@ -41,7 +44,7 @@ uint8_t COMPARE_MATCH1=0;
     "AT+QICFG=\"passiveclosed\",1\r",                  //:15
     
     "AT+QICFG=\"tcp/keepalive\"\r",                    //:16
-    
+   
     "AT+QIACT=1\r",                                    //:17
     
     "AT+QIACT?\r",                                     //:18
@@ -56,11 +59,12 @@ uint8_t COMPARE_MATCH1=0;
 const char *THIRTY_SECONDS_CHECKS[]=
 {  
 	"AT+QISTATE\r",
-	"AT+CSQ\r"
+	"AT+CSQ\r",
+	"AT+CREG?\r"
 };
 const char *CHECKS_RESPONSE[]=
 {
-	"TCP",
+
 	"TCP LISTENER",
 	NULL
 	
@@ -89,6 +93,7 @@ const char *TCP_ALIVE[]=
 
 	
 };
+
 
 /*-------------------------------------------------------------------------------------------------------------------/
 * Function Name: CHECK_MODULE_RESPONSE
@@ -168,7 +173,9 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
 		}
 		 case 11:
 		{
-			COMPARE_MATCH1= Check_Common_Response(RESPONSE);
+			COMPARE_MATCH1=Check_Common_Response(RESPONSE);
+			
+			
 			 break;
 		}
 		 case 12:
@@ -191,14 +198,20 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
 			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
 			 break;
 		}
+	
 		case 16:
 		{
-			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			COMPARE_MATCH1=CHECK_OK_RESPONSE(RESPONSE);
+			
 			 break;
 		}
 		case 17:
 		{
-			COMPARE_MATCH1= CHECK_OK_RESPONSE(RESPONSE);
+			COMPARE_MATCH1=Check_Common_Response(RESPONSE);
+			if(COMPARE_MATCH1==0)
+			{
+			   R_UART0_Send(ENABLE_URC,sizeof(ENABLE_URC));
+			}
 			 break;
 		}
 		case 18:
@@ -228,10 +241,17 @@ uint8_t CHECK_MODULE_RESPONSE(uint8_t *RESPONSE)
    	return COMPARE_MATCH1; // No match found
 
 }
-//uint_t Check_30s_Data(const char *RESPONSE) {
-//    for (int i = 0; CHECKS_RESPONSE[i] != NULL; i++) {
-//        if (strstr(received_data, CHECKS_RESPONSE[i]) != NULL) {
-//            printf("Match found: %s\n", CHECKS_RESPONSE[i]);
-//        }
-//    }
-//}
+uint8_t Check_QISTATE(uint8_t *RESPONSE)
+{
+    int i;
+    for (i = 0; CHECKS_RESPONSE[i] != NULL; i++) {
+        if (strstr((char*)RESPONSE, CHECKS_RESPONSE[i]) != NULL) 
+	{
+	   memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
+           
+           return 1;
+        }
+    }
+    memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
+    return 0;
+}

@@ -20,10 +20,10 @@
 /***********************************************************************************************************************
 * File Name    : r_cg_tau.c
 * Version      : Code Generator for RL78/I1C V1.01.07.02 [08 Nov 2021]
-* Device(s)    : R5F10NLE
+* Device(s)    : R5F11TLG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 17-01-2025
+* Creation Date: 31-01-2025
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -58,7 +58,7 @@ void R_TAU0_Create(void)
     TAU0RES = 1U;   /* reset timer array unit 0 */
     TAU0RES = 0U;   /* reset release of timer array unit 0 */
     TAU0EN = 1U;    /* enables input clock supply */
-    TPS0 = _0000_TAU_CKM3_fCLK_8 | _0000_TAU_CKM2_fCLK_1 | _0000_TAU_CKM1_fCLK_0 | _0009_TAU_CKM0_fCLK_9;
+    TPS0 = _0000_TAU_CKM3_fCLK_8 | _0000_TAU_CKM2_fCLK_1 | _0090_TAU_CKM1_fCLK_9 | _0000_TAU_CKM0_fCLK_0;
     /* Stop all channels */
     TT0 = _0800_TAU_CH3_H8_STOP_TRG_ON | _0200_TAU_CH1_H8_STOP_TRG_ON | _0008_TAU_CH3_STOP_TRG_ON | 
           _0004_TAU_CH2_STOP_TRG_ON | _0002_TAU_CH1_STOP_TRG_ON | _0001_TAU_CH0_STOP_TRG_ON;
@@ -91,12 +91,12 @@ void R_TAU0_Create(void)
     /* Channel 0 used as interval timer */
     TMR00 = _0000_TAU_CLOCK_SELECT_CKM0 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_TRIGGER_SOFTWARE | 
             _0000_TAU_MODE_INTERVAL_TIMER | _0000_TAU_START_INT_UNUSED;
-    TDR00 = _B71A_TAU_TDR00_VALUE;
+    TDR00 = _5DBF_TAU_TDR00_VALUE;
     TOM0 &= (uint16_t)~_0001_TAU_CH0_SLAVE_OUTPUT;
     TO0 &= (uint16_t)~_0001_TAU_CH0_OUTPUT_VALUE_1;
     TOE0 &= (uint16_t)~_0001_TAU_CH0_OUTPUT_ENABLE;
     /* Channel 1 used as interval timer */
-    TMR01 = _0000_TAU_CLOCK_SELECT_CKM0 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_16BITS_MODE | 
+    TMR01 = _8000_TAU_CLOCK_SELECT_CKM1 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_16BITS_MODE | 
             _0000_TAU_TRIGGER_SOFTWARE | _0000_TAU_MODE_INTERVAL_TIMER | _0000_TAU_START_INT_UNUSED;
     TDR01 = _B71A_TAU_TDR01_VALUE;
     TOM0 &= (uint16_t)~_0002_TAU_CH1_SLAVE_OUTPUT;
@@ -135,7 +135,7 @@ void R_TAU0_Channel0_Stop(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void timer1_Start(void)
+void R_TAU0_Channel1_Start(void)
 {
     TMIF01 = 0U;    /* clear INTTM01 interrupt flag */
     TMMK01 = 0U;    /* enable INTTM01 interrupt */
@@ -147,7 +147,7 @@ void timer1_Start(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void timer1_Stop(void)
+void R_TAU0_Channel1_Stop(void)
 {
     TT0 |= _0002_TAU_CH1_STOP_TRG_ON;
     TMMK01 = 1U;    /* disable INTTM01 interrupt */

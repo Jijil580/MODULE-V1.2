@@ -61,4 +61,10 @@ operatorstatus
 30/1/2025
 data downloaded from meter,
 fine tuning required
+4/2/2025
+debugging 30 seconds status checks
+6/2/25
+fine tuning data download and 30 sec checks,stsbilize connection
 
+7/2/25
+uart1 buffer data and buffer count mismatch found some times

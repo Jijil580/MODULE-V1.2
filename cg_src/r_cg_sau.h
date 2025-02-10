@@ -311,14 +311,13 @@ Macro definitions
 /***********************************************************************************************************************
 Typedef definitions
 ***********************************************************************************************************************/
-extern uint8_t MODULE_FEEDBACK[200];
+//extern uint8_t MODULE_FEEDBACK[200];
 extern int FEEDBACK_LENGTHG;
-extern uint8_t UART0_RECIEVED_DATA[];
-extern  uint8_t RX0_BUFFER[512];
-extern uint8_t RX1_BUFFER[1024];
+//extern uint8_t UART0_RECIEVED_DATA[];
 extern uint8_t RX0_RECIEVED_STRING_LENGTH;
-extern uint8_t COMPARE_BUFF[200];
-extern uint16_t RX1_BUFFER_COUNT;
+//extern uint8_t COMPARE_BUFF[200];
+ extern volatile uint16_t RX1_BUFFER_COUNT;
+  extern volatile uint16_t r1_BUFFER_COUNT;
  extern int START_TIMER;
  extern uint8_t MODULE_MODE;
  extern int RX0_BUFFER_COUNT;

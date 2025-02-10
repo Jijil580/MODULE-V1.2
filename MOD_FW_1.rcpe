@@ -113,6 +113,7 @@
           <Option>-OCDBG=84</Option>
           <Option>-DEBUG_MONITOR=1FE00-1FFFF</Option>
           <Option>-USER_OPT_BYTE=FFFFE0</Option>
+          <Option>-OCDTR</Option>
           <Option>-LISt=%BuildModeName%\%ProjectName%.map</Option>
           <Option>-SHow=SYmbol,Total_size</Option>
           <Option>-AUTO_SECTION_LAYOUT</Option>
@@ -186,9 +187,9 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior25_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior01_macroname" value=""&gt;
+    &lt;DataElement key="pior07_pior00_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior23" value="0"&gt;
+    &lt;DataElement key="pior01_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -234,7 +235,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior07_pior00_macroname" value=""&gt;
+    &lt;DataElement key="pior23" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior03" value="0"&gt;
     &lt;/DataElement&gt;
@@ -40737,7 +40738,7 @@
             &lt;SerializableData name="ValueScale"&gt;
               &lt;DataElement key="ContentItemCount" value="3"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="SelectedContentItem" value="ms"&gt;
+              &lt;DataElement key="SelectedContentItem" value="us"&gt;
               &lt;/DataElement&gt;
               &lt;SerializableData name="ContentItem1"&gt;
                 &lt;DataElement key="Pin" value=""&gt;

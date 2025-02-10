@@ -71,10 +71,11 @@ uint8_t Check_Signal_Quality(uint8_t *RESPONSE)
 	 for(Sting_index=0;Sting_index<=288;Sting_index++)
 	{
 	 	if (strncmp((char *)RESPONSE, SIGNAL_QUALITY[Sting_index], strlen(SIGNAL_QUALITY[Sting_index])) == 0)
-	 	{
+	 	{       
 			return 1; 	 
          	}	
 	}
+	 
 	 return 0;	
 		
 }

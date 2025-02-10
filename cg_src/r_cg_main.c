@@ -1,6 +1,5 @@
 /*--------------------------------------------------------------------------------------------------------/
 FIRWARE VERSION: MOD_FW_V1
-OWNER          : JIJIL SADANANDAN
 date           : sept 2024 
 ----------------------------------------------------------------------------------------------------------*/
 
@@ -12,6 +11,7 @@ date           : sept 2024
 #include "r_cg_port.h"
 #include "r_cg_tau.h"
 #include "r_cg_wdt.h"
+#include "r_cg_sau.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "r_cg_sau.h"
@@ -22,12 +22,16 @@ date           : sept 2024
 #include "networkstatus.h"
 #include "operatorstatus.h"
 
-#define WAIT_TIME 300000
-#define MODULE_INIT_TIME 20000
-#define SECONDS_30  (TIMER_COUNT==30)
+
+#define WAIT_TIME1 750//300000
+#define WAIT_TIME2 600//30000
+#define MODULE_INIT_TIME 100//20000
+#define SECONDS_30  (TIMER_COUNT==60)
   /*global variables*/
   
 uint8_t TCP_CLOSE[]="AT+QICLOSE=1\r";
+uint8_t QISTATE[]="AT+QISTATE\r";
+volatile uint16_t data_length=0;
 uint8_t TEMP_BUFFER[512];
 uint8_t RECIEVED=0;
 uint8_t RECIEVED_TCP=0;
@@ -43,14 +47,15 @@ uint8_t MODULE_MODE=0;
 uint8_t TCP_DATA_PROCESSED=0;
 uint8_t TCP_DATA=0;
 uint8_t buffer_Count;
-unsigned long int WAIT_COUNT=0;
-
-
+extern unsigned long int WAIT_COUNT;
+uint8_t   DATA_RECIEVEING=0;
+uint8_t size_atcommand=0;
  /*FUNCTION DECLARATION*/
  
 void TURN_ON_MODULE(void);
 void Initialize_Module(void);
-void CHECK_MODULE_STATUS(void);
+void Network_Check_Activity(void);
+void CHECK_MODULE_STATUS(uint8_t *RESPONSE);
 uint8_t WAIT_RECEPTION_TO_COMPLETE(void);
 static void R_MAIN_UserInit(void);
 void FETCH_METERDATA_AND_SEND(void);
@@ -59,10 +64,8 @@ uint8_t INIT_MODULE_TO_TCP_LISTENMODE(void);
 void generate_at_command(uint8_t connection_id, uint8_t frame_size);
 uint8_t WAIT_RECEPTION_TO_COMPLETE(void);
 void FETCH_TCP_DATA(void) ;
-
-
-
-
+uint16_t calculate_data_length(void);
+void Check_QIstate(void);
 
 uint8_t READ_RESF;
  void __delay_ms(unsigned int milliseconds) {
@@ -85,21 +88,28 @@ void main(void)
 	
     	R_MAIN_UserInit();
         TURN_ON_MODULE();
+	//R_TAU0_Channel1_Start();
         //R_TAU0_Channel0_Start();
 	while (1U)
     	{
-    		R_WDT_Restart();
-		
+
+		R_WDT_Restart();
+		//Network_Check_Activity();
 		if(MODULE_MODE==INIT_MODE&&DATA_RECIEVED==1)
 		{       
 		/*INIT MODE*/
-			WAIT_RECEPTION_TO_COMPLETE();
-			if(WAIT_COUNT>MODULE_INIT_TIME)
-				{
-				//DATA_RECIEVED=0;
-		         	WAIT_COUNT=0;
-		         	TCP_INIT_STATUS= INIT_MODULE_TO_TCP_LISTENMODE();
-				}
+		    
+		        if(WAIT_COUNT==0)
+			{
+				WAIT_COUNT=1;
+				WAIT_RECEPTION_TO_COMPLETE();
+			}
+			if(WAIT_COUNT>=MODULE_INIT_TIME)
+			{
+				 R_TAU0_Channel0_Stop();
+		         	 WAIT_COUNT=0;
+		         	 TCP_INIT_STATUS= INIT_MODULE_TO_TCP_LISTENMODE();
+			}
 		}
 	   
      
@@ -108,52 +118,86 @@ void main(void)
 		/*TCP LISTNER MODE*/  
 			if(DATA_RECIEVED == 1) //ENSURE DATA IS RECIVED
                 	{
-		        	WAIT_RECEPTION_TO_COMPLETE();	
-				if(WAIT_COUNT>WAIT_TIME)
-				{
-			   		DATA_RECIEVED=0;
-					WAIT_COUNT=0;
-               				if(METER_DATA==1&&TCP_DATA==0)
+			   		
+               				if(METER_REPLIED)
 	      	        		{
 				 	/*data recieved over meter*/
-				
-						FETCH_METERDATA_AND_SEND();
-						METER_DATA=1;
-				
+					         if(WAIT_COUNT==0)
+						{       DATA_RECIEVEING=1;
+							WAIT_COUNT=1;
+							WAIT_RECEPTION_TO_COMPLETE();
+						}
+				           	if(RECEPTION_COMPLETED_FROM_METER)
+				            	{
+							//DI();
+							R_TAU0_Channel0_Stop();
+						    	DATA_RECIEVED=0;
+					               	WAIT_COUNT=0;
+							FETCH_METERDATA_AND_SEND();
+							METER_DATA=1;
+					    	}
 	       				}
-	       				else if(METER_DATA==0&&TCP_DATA==1)
+	       				else if(GURUX_COMMAND)
 	       				{
-	        		      	/**data recieved over TCP**/
-                				DATA_RECIEVED=0;
-						RX0_BUFFER[RX0_BUFFER_COUNT]='\0';
-						FETCH_TCP_DATA(); //extract data 
+	        		      	/**data recieved over TCP**/ 
+					
+					        if(WAIT_COUNT==0)
+						{       DATA_RECIEVEING=1;
+							WAIT_COUNT=1;
+							WAIT_RECEPTION_TO_COMPLETE();
+						}
+					     	if(RECEPTION_COMPLETED_FROM_MODULE)
+				               	{     
+							R_TAU0_Channel0_Stop();
+							DATA_RECIEVED=0;
+					         	WAIT_COUNT=0;
+                					DATA_RECIEVED=0;
+							RX0_BUFFER[RX0_BUFFER_COUNT]='\0';
+							FETCH_TCP_DATA(); //extract data 
 	       		         	
-	       					if(RECIEVED_TCP==1)
-	       					{
-						/*valid data with length*/
-		    					RECIEVED_TCP=0;
-	             					R_UART1_Send(TEMP_BUFFER,temp_index-3);
-							//for(buffer_Count=0;buffer_Count<=512;buffer_Count++)//Clear buffer
-							//RX0_BUFFER[buffer_Count]=0;
-							RX0_BUFFER_COUNT=0;
-	      					}
+	       						if(RECIEVED_TCP==1)
+	       						{
+							/*valid data with length*/
+		    						RECIEVED_TCP=0;
+	             						R_UART1_Send(TEMP_BUFFER,temp_index-3);
+								RX0_BUFFER_COUNT=0;
+								DATA_RECIEVEING=0;
+								
+	      						}
+					       	}
 		
-		
-	       			 	}
-				}
+	       			 	
+					}
+				
 			
-	       		}//if data recievd end
+	       		}
+			//if data recievd end
 	
 		}//if tcp mode end;
+
+		
+		
 //		if(SECONDS_30&&DATA_RECIEVED==0)
 //		{ 
-//			MODULE_MODE=CHECK_MODE;
-			
+//		     MODULE_MODE=CHECK_MODE;
+//		     TIMER_COUNT=0;
+//		     R_UART0_Send(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT], strlen(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT]));
 //		}
-		
-//		if(MODULE_MODE==CHECK_MODE)
+//		if(MODULE_MODE==CHECK_MODE&&DATA_RECIEVED==1)
 //		{
-			
+//			 if(WAIT_COUNT==0)
+//			{
+//				WAIT_COUNT=1;
+//				WAIT_RECEPTION_TO_COMPLETE();
+//			}
+//			//CHECK_MODULE_STATUS(RX0_BUFFER);//R_UART0_Send(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT], strlen(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT]));
+//			if(WAIT_COUNT>=MODULE_INIT_TIME)
+//			{
+//				 R_TAU0_Channel0_Stop();
+//		         	 WAIT_COUNT=0;
+//		         	 CHECK_MODULE_STATUS(RX0_BUFFER);
+//			}
+		        
 //		}
 	
 	
@@ -214,18 +258,16 @@ uint8_t INIT_MODULE_TO_TCP_LISTENMODE(void)
 --------------------------------------------------------------------------------------------------------------------*/
 void FETCH_METERDATA_AND_SEND(void)
 {
-        uint16_t data_length=0;
+        
 	DATA_RECIEVED=0;
-	//METER_DATA=0;
-	RX1_BUFFER[RX1_BUFFER_COUNT]='\0';
+	data_length=0;
 	data_length=RX1_BUFFER_COUNT;
 	sprintf(at_command, "AT+QISEND=%u,%u\r\n", 11,data_length);//CREATE AT COMMAND FOR SEND over TCP
-	R_UART0_Send(at_command,strlen(at_command));
-	__delay_ms(30);
-	R_UART0_Send(RX1_BUFFER,data_length);
-	MODULE_MODE=1;
-	METER_DATA=1;
-	RX1_BUFFER_COUNT=0;
+	size_atcommand=sizeof(at_command);
+	R_UART0_Send(at_command,size_atcommand);
+	DATA_RECIEVED=1;
+	
+	
 }
 /*-------------------------------------------------------------------------------------------------------------------/
 * Function Name: FETCH_TCP_DATA
@@ -248,22 +290,61 @@ void FETCH_TCP_DATA(void)
           		RECIEVED_TCP=1;
 	  		RECIEVED=1;
 	  		data_intex=i;
-	  		//break;
+			memset(RX1_BUFFER,0,sizeof(RX1_BUFFER)-1);
+	  		
 		}
 		if(RX0_BUFFER[i]=='f'&&RX0_BUFFER[i+1]=='u'&&
 		RX0_BUFFER[i+2]=='l'&&RX0_BUFFER[i+3]=='l')  // check "incoming full" if true reinit tcplistenmode
 		{
           		MODULE_MODE=0;//*INIT mode
 	  		AT_COMMAND_COUNT=21;//at command_count for listen mode
-	  		//break;
+			DATA_RECIEVED=1;
+	  		memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
+			
 		}
 		if(RX0_BUFFER[i]=='c'&&RX0_BUFFER[i+1]=='l'&&
-		RX0_BUFFER[i+2]=='0'&&RX0_BUFFER[i+3]=='s'&&RX0_BUFFER[i+3]=='e'&&RX0_BUFFER[i+3]=='d')  // check "incoming full" if true reinit tcplistenmode
+		RX0_BUFFER[i+2]=='0'&&RX0_BUFFER[i+3]=='s'&&RX0_BUFFER[i+4]=='e'&&RX0_BUFFER[i+5]=='d')  // check "tcp closed" if true reinit tcplistenmode
 		{
           		MODULE_MODE=0;//*INIT mode
 	  		AT_COMMAND_COUNT=21;//at command_count for listen mode
 	  		//break;
+			DATA_RECIEVED=1;
+			memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
+			break;
 		}
+		if(RX0_BUFFER[i]=='E'&&RX0_BUFFER[i+1]=='R'&&
+		RX0_BUFFER[i+2]=='R'&&RX0_BUFFER[i+3]=='0'&&RX0_BUFFER[i+4]=='R')  // check "ERROR" if true reinit tcplistenmode
+		{
+          		MODULE_MODE=0;//*INIT mode
+	  		AT_COMMAND_COUNT=1;//at command_count for listen mode
+	  		//break;
+			DATA_RECIEVED=1;
+			memset(RX0_BUFFER,0,sizeof(RX0_BUFFER)-1);
+		}
+		if(RX0_BUFFER[i]=='S'&&RX0_BUFFER[i+1]=='E'&&
+		RX0_BUFFER[i+2]=='N'&&RX0_BUFFER[i+3]=='D')  // check "ERROR" if true reinit tcplistenmode
+		{
+          		MODULE_MODE=1;//*INIT mode
+	  		memset(RX0_BUFFER,0,sizeof(RX0_BUFFER)-1);
+		}
+		
+		
+		if(RX0_BUFFER[i]=='>')
+		{
+			R_UART0_Send(RX1_BUFFER,data_length);
+			MODULE_MODE=1;
+	                METER_DATA=1;
+	                DATA_RECIEVEING=0;
+	                RX1_BUFFER_COUNT=0;
+			memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
+		}
+//		if(RX0_BUFFER[i]=='S'&&RX0_BUFFER[i+1]=='E'&&
+//		RX0_BUFFER[i+2]=='N'&&RX0_BUFFER[i+3]=='D') 
+//		{
+		   
+//		}
+		
+		
     	}
     	if(RECIEVED==1)
     	{
@@ -298,8 +379,7 @@ void FETCH_TCP_DATA(void)
 uint8_t WAIT_RECEPTION_TO_COMPLETE(void)
 {
 	
-	WAIT_COUNT++;
-
+	R_TAU0_Channel0_Start();
 	return 1;
 	
 }
@@ -313,36 +393,111 @@ void TURN_ON_MODULE(void)
      	P7&=~(1<<3); //POWERKEY OFF
     	__delay_ms(500);
 }
-void CHECK_MODULE_STATUS(void)
-{
-	if(DATA_RECIEVED==0)
-	{
-		R_UART0_Send(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT], strlen(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT]));
-		AT_COMMAND_COUNT++;
+//void CHECK_MODULE_STATUS(uint8_t *RESPONSE)
+//{
+//	switch(AT_COMMAND_COUNT)
+//        {
+//		case 0:
+//			COMPARE_MATCH1=Check_QISTATE(RESPONSE);
+//			AT_COMMAND_COUNT++;
+//			R_UART0_Send(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT], strlen(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT]));    
+//			break;
+//		case 1:
+//			COMPARE_MATCH1=Check_Signal_Quality(RESPONSE); //
+//			AT_COMMAND_COUNT++;
+//			R_UART0_Send(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT], strlen(THIRTY_SECONDS_CHECKS[AT_COMMAND_COUNT])); 
+//			break;
+//		case 2:
+//			COMPARE_MATCH1=Check_Network_Reg_status(RESPONSE);
+//			AT_COMMAND_COUNT=0;
+//			if(COMPARE_MATCH1==1)
+//			{
+//			MODULE_MODE=TCP_MODE;
+//			DATA_RECIEVED=0;
+//			AT_COMMAND_COUNT=0;
+//			}
+//			break;
+//	}
+//	RX0_BUFFER_COUNT=0;
 	
-	}
-	else if(DATA_RECIEVED==1)
-	{
-		switch(AT_COMMAND_COUNT)
-		{
-			case 0:
-			
-				break;
-			case 1:
-			
-				break;
-		}
-	}
-}
+//	if(COMPARE_MATCH1==0)
+//	{
+//		AT_COMMAND_COUNT=0;
+//		MODULE_MODE=INIT_MODE;
+//		R_UART0_Send(TCP_CLOSE, strlen(TCP_CLOSE));
+//		DATA_RECIEVED=1;
+//	}
 
-
+//}
 static void R_MAIN_UserInit(void)
 {
         READ_RESF=RESF;    //reset flag register
     	EI();
     	R_UART0_Start();
     	R_UART1_Start();
-   
+}
+void Check_QIstate(void)
+{
+	if(DATA_RECIEVED==1)
+	{
+		if(WAIT_COUNT==0)
+		{
+			WAIT_COUNT=1;
+			WAIT_RECEPTION_TO_COMPLETE();
+		}
+		if(WAIT_COUNT>=MODULE_INIT_TIME)
+		{
+			WAIT_COUNT=0;
+			R_UART0_Send(QISTATE,sizeof(QISTATE));
+			COMPARE_MATCH1=Check_QISTATE(RX0_BUFFER);
+			if(COMPARE_MATCH1==1)
+			{
+			  R_UART0_Send(TCP_CLOSE,sizeof(TCP_CLOSE));
+			}
+			else if(COMPARE_MATCH1==0)
+			{
+				MODULE_MODE=0;
+				DATA_RECIEVED=1;
+			}
+		}
+		
+	}
+	
 }
 
-
+uint16_t calculate_data_length(void)
+{
+	uint16_t l=0;
+	for(l=0;RX1_BUFFER[l]<sizeof(RX1_BUFFER)-1;l++)
+	{
+		if(RX1_BUFFER[l]==0&&RX1_BUFFER[l+1]==0&&
+		   RX1_BUFFER[l+2]==0&&RX1_BUFFER[l+3]==0&&
+		   RX1_BUFFER[l+4]==0&&RX1_BUFFER[l+5]==0&&
+		   RX1_BUFFER[l+6]==0&&RX1_BUFFER[l+7]==0&&
+		   RX1_BUFFER[l+8]==0&&RX1_BUFFER[l+9]==0&&
+		   RX1_BUFFER[l+10]==0)
+		{
+		  	return l;
+			
+		}
+	}
+	return l;
+}
+void Network_Check_Activity(void)
+{
+                if( DATA_RECIEVED==0)
+			 DATA_RECIEVEING=0;
+				
+		if(SECONDS_30&&DATA_RECIEVED==0&&DATA_RECIEVEING==0)
+		{
+		   	MODULE_MODE=CHECK_MODE;
+		   	DATA_RECIEVED=1;
+		}
+		
+		
+		if(MODULE_MODE==CHECK_MODE)
+		{
+			Check_QIstate();
+			DATA_RECIEVED=1;
+		}	
+}

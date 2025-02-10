@@ -38,6 +38,7 @@ Includes
 #include "r_cg_tau.h"
 #include "r_cg_tau.h"
 #include "r_cg_wdt.h"
+#include "quecktel.h"
 //#include "Quecktel.h"
 /***********************************************************************************************************************
 Pragma directive
@@ -71,24 +72,26 @@ int TX_RX;
 /* End user code. Do not edit comment generated here */
  uint8_t LINE_END_COUNT=0;
  uint8_t URC_COUNT=0;
- 
+ uint8_t DATA_RECIEVED;
+ uint8_t TCP_INIT_STATUS;
  uint8_t RX0_RECIEVED_STRING_LENGTH;
  uint8_t RX0_BUFFER[512];
- //uint8_t TX0_BUFFER[100];
+
  uint8_t RX1_BUFFER[1024];
-// uint8_t TX1_BUFFER[500];
- //extern uint8_t URC_BUFFER[100];
+
  uint8_t METER_DATA=0;
  int  RX0_BUFFER_COUNT=0;
  uint8_t TX0_BUFFER_COUNT=0;
- uint16_t RX1_BUFFER_COUNT=0;
+ volatile uint16_t r1_BUFFER_COUNT=0;
+ volatile uint16_t RX1_BUFFER_COUNT=0;
  uint8_t TX1_BUFFER_COUNT=0;
  extern uint8_t MAIN_RX_STORE_COUNT=0;
  uint8_t END_OF_RESPONSE=0;
  uint8_t END_OF_RESPONSE1=0;
  uint8_t HANDLING_METER_DATA;
+ int send_count=0;
  //uint8_t MAIN_RX_STORE[512];
- uint8_t final_buffer[512]; // Adjust size as per your needs
+// uint8_t final_buffer[512]; // Adjust size as per your needs
 /********************************************************************************************/
 
 
@@ -109,19 +112,15 @@ static void __near r_uart0_interrupt_receive(void)
     }
    
        rx_data = RXD0;
-       //if(METER_DATA==1)
-       //timer1_Start();
-       //else if(MODULE_MODE==INIT_MODE)
-        //DATA_RECIEVED=1;
+     
        
-   
+     if(RX0_BUFFER_COUNT<1000){
         RX0_BUFFER[RX0_BUFFER_COUNT] = rx_data;
         RX0_BUFFER_COUNT++;
-    
         METER_DATA=0;
 	TCP_DATA=1;
-        DATA_RECIEVED=1;
-    
+        DATA_RECIEVED=1;}
+    R_WDT_Restart();
 }
 
   
@@ -135,6 +134,7 @@ static void __near r_uart0_interrupt_receive(void)
 ***********************************************************************************************************************/
 static void __near r_uart0_interrupt_send(void)
 {
+	
     if (g_uart0_tx_count > 0U)
     {
         TXD0 = *gp_uart0_tx_address;
@@ -144,15 +144,12 @@ static void __near r_uart0_interrupt_send(void)
     }
     else
     {
-	//memset(UART1_RECIEVED_DATA,0,100);
-	//memset(RX1_BUFFER,0,512);
-	//memset(MAIN_RX_STORE,0,200);
-	memset(final_buffer,0,512);
-	//RX1_BUFFER_COUNT=0;
+	
 	MAIN_RX_STORE_COUNT=0;
 	LINE_END_COUNT=0;
         g_uart1_rx_count=0;
-        r_uart0_callback_sendend();
+	
+       // r_uart0_callback_sendend();
     }
 }
 /***********************************************************************************************************************
@@ -226,20 +223,18 @@ static void __near r_uart1_interrupt_receive(void)
     }
     
     rx_data = RXD1;
-    
-        //if(METER_DATA==0)
-	//timer1_Start();
-	
-      	if (RX1_BUFFER_COUNT < 1000) 
-	{
-	  	RX1_BUFFER[RX1_BUFFER_COUNT]= rx_data;
-	
-	   	RX1_BUFFER_COUNT++;
-	}
- 	
- 	METER_DATA=1;
-	TCP_DATA=0;
- 	 DATA_RECIEVED=1;
+	    if(RX1_BUFFER_COUNT<sizeof(RX1_BUFFER)-1)
+	    {
+      	        RX1_BUFFER[RX1_BUFFER_COUNT]= rx_data;
+		RX1_BUFFER_COUNT++;
+		
+		
+ 	        METER_DATA=1;
+	        TCP_DATA=0;
+ 	        DATA_RECIEVED=1;
+	    }
+		
+	R_WDT_Restart();
 	
 }
 /***********************************************************************************************************************
@@ -260,7 +255,7 @@ static void __near r_uart1_interrupt_send(void)
     else
     {
 	
-	memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
+	memset(RX0_BUFFER,0,sizeof(RX0_BUFFER)-1);
 	RX0_BUFFER_COUNT=0;
 	//RX1_BUFFER_COUNT=0;
 	MAIN_RX_STORE_COUNT=0;
@@ -279,7 +274,7 @@ static void r_uart1_callback_receiveend(void)
 {
     /* Start user code. Do not edit comment generated here */
     
-    R_UART0_Send(final_buffer, strlen((char *)final_buffer));
+//    R_UART0_Send(final_buffer, strlen((char *)final_buffer));
 
     /* End user code. Do not edit comment generated here */
 }

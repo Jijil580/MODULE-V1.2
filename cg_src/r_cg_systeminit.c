@@ -20,10 +20,10 @@
 /***********************************************************************************************************************
 * File Name    : r_cg_systeminit.c
 * Version      : Code Generator for RL78/I1C V1.01.07.02 [08 Nov 2021]
-* Device(s)    : R5F10NLE
+* Device(s)    : R5F11TLG
 * Tool-Chain   : CCRL
 * Description  : This file implements system initializing function.
-* Creation Date: 17-01-2025
+* Creation Date: 31-01-2025
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -71,7 +71,7 @@ void R_Systeminit(void)
     IAWCTL = 0x00U;
     /* Start data flash control */
     DFLEN = 1U;
-    for (w_count = 0U; w_count < 10000U; w_count++)
+    for (w_count = 0U; w_count < 10U; w_count++)
     {
         NOP();
     }

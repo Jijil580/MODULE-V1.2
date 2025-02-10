@@ -1,79 +1,13 @@
 QualityReport
-31 January 2025 16:02:20
+10 February 2025 18:32:18
 
 ------ Start build(MOD_FW_1, DefaultBuild) ------
-C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\Bin\ccrl.exe cg_src\r_cg_main.c -cpu=S3 -o DefaultBuild\r_cg_main.obj "-dev=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF" -g -g_line -I cg_src -I . -c -msg_lang=english
-C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\inc\stdint.h(18):W0520301:Typedef name has already been declared (with same type)
-C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\inc\stdint.h(19):W0520301:Typedef name has already been declared (with same type)
-C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\inc\stdint.h(20):W0520301:Typedef name has already been declared (with same type)
-C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\inc\stdint.h(25):W0520301:Typedef name has already been declared (with same type)
-C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\inc\stdint.h(26):W0520301:Typedef name has already been declared (with same type)
-C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\inc\stdint.h(27):W0520301:Typedef name has already been declared (with same type)
-cg_src\r_cg_main.c(195):W0520167:Argument of type "const char *__near" is incompatible with parameter of type "uint8_t *const __near"
-cg_src\r_cg_main.c(222):W0520167:Argument of type "uint8_t __near *" is incompatible with parameter of type "char __far *__near"
-cg_src\r_cg_main.c(223):W0520167:Argument of type "uint8_t __near *" is incompatible with parameter of type "const char __near *__near"
-cg_src\r_cg_main.c(320):W0520167:Argument of type "const char *__near" is incompatible with parameter of type "uint8_t *const __near"
-C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.14.00\Bin\rlink.exe -subcommand=DefaultBuild\MOD_FW_1.clnk
-RAMDATA SECTION:  00000d8c Byte(s)
-ROMDATA SECTION:  00002a8a Byte(s)
-PROGRAM SECTION:  0000339d Byte(s)
-Renesas Optimizing Linker Completed
------- Build ended(Error:0, Warning:10)(MOD_FW_1, DefaultBuild) ------
-
---- CommandFile 1 ---
-DefaultBuild\MOD_FW_1.clnk :
--Input=DefaultBuild\cstart.obj
--Input=DefaultBuild\stkinit.obj
--Input=DefaultBuild\r_cg_main.obj
--Input=DefaultBuild\r_cg_systeminit.obj
--Input=DefaultBuild\r_cg_cgc.obj
--Input=DefaultBuild\r_cg_cgc_user.obj
--Input=DefaultBuild\r_cg_port.obj
--Input=DefaultBuild\r_cg_port_user.obj
--Input=DefaultBuild\r_cg_tau.obj
--Input=DefaultBuild\r_cg_tau_user.obj
--Input=DefaultBuild\r_cg_sau.obj
--Input=DefaultBuild\r_cg_sau_user.obj
--Input=DefaultBuild\r_cg_wdt.obj
--Input=DefaultBuild\r_cg_wdt_user.obj
--Input=DefaultBuild\quecktel.obj
--Input=DefaultBuild\quecktel_users.obj
--Input=DefaultBuild\csq.obj
--Input=DefaultBuild\simstastus.obj
--Input=DefaultBuild\networkstatus.obj
--Input=DefaultBuild\cmeerror.obj
--Input=DefaultBuild\operatorstatus.obj
--SECURITY_ID=00000000000000000000
--DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF
--DEBug
--NOCOmpress
--NOOPtimize
--OUtput=DefaultBuild\MOD_FW_1.abs
--OCDBG=84
--DEBUG_MONITOR=1FE00-1FFFF
--USER_OPT_BYTE=FFFFE0
--LISt=DefaultBuild\MOD_FW_1.map
--SHow=SYmbol,Total_size
--AUTO_SECTION_LAYOUT
--ROm=.data=.dataR
--ROm=.sdata=.sdataR
--NOMessage
--STACk
--Total_size
--NOLOgo
--LIBrary=DefaultBuild\MOD_FW_1.lib
--end
--Input=DefaultBuild\MOD_FW_1.abs
--DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11TLG.DVF
--OUtput=DefaultBuild\MOD_FW_1.mot
--FOrm=Stype
--NOMessage
--exit
+------ Build ended(Error:0, Warning:0)(MOD_FW_1, DefaultBuild) ------
 
 
 --- SHA1 hash value of output files ---
-D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.abs: d94e881cb5c6c7270d01ab1427fa12b9d7f49389
-D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.mot: 8aaaaf9491f5c91cbed9b785ed5431e71ce28446
+D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.abs: 5d841b2943d4bd5cb136c427657e8794441d2a55
+D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.mot: 80c26bf9194e6105abea8249a8b930571ebd05ab
 
 
 --- System Information ---
@@ -99,13 +33,13 @@ D:\EEPLJIJIL\MODULE_FIRWARE_V1.2\DefaultBuild\MOD_FW_1.mot: 8aaaaf9491f5c91cbed9
  C:\Program Files (x86)\Renesas Electronics\CS+\CC
 *Memory Usage
  *Private Working Set
-  544 MB
+  728 MB
  *Number of GDI Objects
-  2367
+  2668
  *Number of USER Objects
-  1262
+  1701
  *Opened Files
-  13 editors, 13 files, 113 KB
+  29 editors, 29 files, 203 KB
 
 --- Build Tool Plug-in Information ---
 RH850 Build tool CC-RH Plug-in
@@ -268,6 +202,8 @@ Build Tool Information
 Debug Tool Information
  *RL78 E2 Lite
   Debugger Library V8.12.00.03 [23 May 2024]
+  RL78 E2 Lite Executor V4.13c [14 Mar 2024]
+  E2 Lite 4100 A F/W V07.06
   
 
 Other Tool Information

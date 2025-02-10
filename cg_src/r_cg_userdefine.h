@@ -20,10 +20,10 @@
 /***********************************************************************************************************************
 * File Name    : r_cg_userdefine.h
 * Version      : Code Generator for RL78/I1C V1.01.07.02 [08 Nov 2021]
-* Device(s)    : R5F10NLE
+* Device(s)    : R5F11TLG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 17-01-2025
+* Creation Date: 31-01-2025
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H

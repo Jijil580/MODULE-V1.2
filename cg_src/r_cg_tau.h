@@ -20,10 +20,10 @@
 /***********************************************************************************************************************
 * File Name    : r_cg_tau.h
 * Version      : Code Generator for RL78/I1C V1.01.07.02 [08 Nov 2021]
-* Device(s)    : R5F10NLE
+* Device(s)    : R5F11TLG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 17-01-2025
+* Creation Date: 31-01-2025
 ***********************************************************************************************************************/
 #ifndef TAU_H
 #define TAU_H
@@ -360,27 +360,21 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _B71A_TAU_TDR00_VALUE                 (0xB71AU) /* 16-bit timer data register 00 */
+#define _5DBF_TAU_TDR00_VALUE                 (0x5DBFU) /* 16-bit timer data register 00 */
 #define _B71A_TAU_TDR01_VALUE                 (0xB71AU) /* 16-bit timer data register 01 */
 
 /***********************************************************************************************************************
 Typedef definitions
 ***********************************************************************************************************************/
-extern long int TIMER_COUNT;
-extern long int TIMER1_COUNT;
-extern uint8_t METER_DATA;
-extern uint8_t TCP_DATA;
-extern uint8_t DATA_RECIEVED;
-extern uint8_t HANDLING_METER_DATA;
+
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
 void R_TAU0_Create(void);
 void R_TAU0_Channel0_Start(void);
 void R_TAU0_Channel0_Stop(void);
-
-void timer1_Start(void);
-void timer1_Stop(void);
+void R_TAU0_Channel1_Start(void);
+void R_TAU0_Channel1_Stop(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

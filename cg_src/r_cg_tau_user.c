@@ -20,10 +20,10 @@
 /***********************************************************************************************************************
 * File Name    : r_cg_tau_user.c
 * Version      : Code Generator for RL78/I1C V1.01.07.02 [08 Nov 2021]
-* Device(s)    : R5F10NLE
+* Device(s)    : R5F11TLG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 17-01-2025
+* Creation Date: 31-01-2025
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -34,7 +34,7 @@ Includes
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
-
+#include "quecktel.h"
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
@@ -55,67 +55,31 @@ Global variables and functions
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-uint8_t DATA_RECIEVED=0;
-uint8_t TCP_INIT_STATUS;
-int START_TIMER=0;
+unsigned long int WAIT_COUNT=0;
+static void __near r_tau0_channel0_interrupt(void)
+{
+    
+     //R_WDT_Restart();
+    
+      WAIT_COUNT++;
+      if( WAIT_COUNT>400)
+      R_WDT_Restart();
 
-//uint8_t METER_DATA=0;
+}
 /***********************************************************************************************************************
-Global variables and functions
-***********************************************************************************************************************/
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-* Function Name: r_tau0_channel0_interrupt
-* Description  : This function INTTM00 interrupt service routine.
+* Function Name: r_tau0_channel1_interrupt
+* Description  : This function INTTM01 interrupt service routine.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void __near r_tau0_channel0_interrupt(void)
+static void __near r_tau0_channel1_interrupt(void)
 {
+	TIMER_COUNT++;
+	if(TIMER_COUNT>61)
+	TIMER_COUNT=0;
     /* Start user code. Do not edit comment generated here */
-     //R_WDT_Restart();
-     //if(METER_DATA==1||METER_DATA==0||TCP_INIT_STATUS==0)
-     TIMER_COUNT++;
-      //R_WDT_Restart();
-//      if(TIMER_COUNT>=1&&TCP_INIT_STATUS==0)///INITIALISING MODULE
-//	  {
-//           TIMER_COUNT=0;
-//	   DATA_RECIEVED=1;
-//	   R_TAU0_Channel0_Stop();
-	  
-//	   }
-     
-	 
-	  
-	  
-     R_WDT_Restart();
-    
     /* End user code. Do not edit comment generated here */
 }
 
-extern void delay_In_Seconds(long int seconds)
-{
-	
-	R_TAU0_Channel0_Start();
-	while(TIMER_COUNT<seconds);
-	TIMER_COUNT=0;
-	R_TAU0_Channel0_Stop();
-}
-static void __near r_tau0_channel1_interrupt(void)
-{
-	 TIMER1_COUNT++;
-	 R_WDT_Restart();
-	   if(TIMER1_COUNT>=1)///DATA RECIEVED
-	  {
-           timer1_Stop();
-           DATA_RECIEVED=1;
-	   TIMER1_COUNT=0;
-	   
-	   }
-	
-	
-}
-
-
+/* Start user code for adding. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */

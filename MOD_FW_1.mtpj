@@ -810,7 +810,7 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
       <LinkOptionRrm-DefaultValue>False</LinkOptionRrm-DefaultValue>
       <LinkOptionRrmValue-DefaultValue />
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8584639074741177464</TimeTagModified--0>
+      <TimeTagModified--0>-8584632801545602159</TimeTagModified--0>
       <LinkOptionAutoSectionLayout-0>True</LinkOptionAutoSectionLayout-0>
       <LinkOptionCpu-0>False</LinkOptionCpu-0>
       <LinkOptionDebug-0>Debug</LinkOptionDebug-0>
@@ -895,7 +895,7 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
       <LinkOptionShowRelocationAttribute-0>False</LinkOptionShowRelocationAttribute-0>
       <LinkOptionSplitVect-0>False</LinkOptionSplitVect-0>
       <LinkOptionAbsoluteForbid-0 />
-      <LinkOptionOcdTr-0>None</LinkOptionOcdTr-0>
+      <LinkOptionOcdTr-0>OcdTr</LinkOptionOcdTr-0>
       <LinkOptionShowCFI-0>False</LinkOptionShowCFI-0>
       <LinkOptionOcdHpi-0>None</LinkOptionOcdHpi-0>
       <LinkOptionRrm-0>False</LinkOptionRrm-0>
@@ -1291,7 +1291,7 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
       <ItemAddTimeCount>0</ItemAddTimeCount>
     </Instance>
     <Instance Guid="0b7e78c3-aadd-45ee-9f9d-ffac6141eeb2">
-      <TimeTagModified-SourceItem0--0>-8584723784699746964</TimeTagModified-SourceItem0--0>
+      <TimeTagModified-SourceItem0--0>-8584627777407577759</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
       <SourceItem0-BuildingTarget-0>True</SourceItem0-BuildingTarget-0>
       <SourceItem0-IndividualAssembleOption-0>False</SourceItem0-IndividualAssembleOption-0>
@@ -2137,9 +2137,9 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
     &lt;/DataElement&gt;
     &lt;DataElement key="pior25_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior01_macroname" value=""&gt;
+    &lt;DataElement key="pior07_pior00_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior23" value="0"&gt;
+    &lt;DataElement key="pior01_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -2185,7 +2185,7 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior07_pior00_macroname" value=""&gt;
+    &lt;DataElement key="pior23" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior03" value="0"&gt;
     &lt;/DataElement&gt;
@@ -42688,7 +42688,7 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
             &lt;SerializableData name="ValueScale"&gt;
               &lt;DataElement key="ContentItemCount" value="3"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="SelectedContentItem" value="ms"&gt;
+              &lt;DataElement key="SelectedContentItem" value="us"&gt;
               &lt;/DataElement&gt;
               &lt;SerializableData name="ContentItem1"&gt;
                 &lt;DataElement key="Pin" value=""&gt;
@@ -79950,7 +79950,7 @@ C:\Program Files (x86)\Renesas Electronics\CS+\CC\FAA\V1.05.00
       <SamplingInterval>10</SamplingInterval>
       <DataCollectionChannel>None</DataCollectionChannel>
       <ChannelVariableName1>pointer</ChannelVariableName1>
-      <ChannelVariableName2 />
+      <ChannelVariableName2>RX1_BUFFER</ChannelVariableName2>
       <ChannelVariableName3 />
       <ChannelVariableName4 />
       <ChannelVariableName5 />

@@ -1,5 +1,6 @@
 #include "networkstatus.h"
 #include "string.h"
+#include "quecktel.h"
 #include <stdio.h>
 
 const NETWORK_STATUS_t NETWORK_RESPONSE[] =
@@ -33,9 +34,11 @@ Network_Status_t Check_Network_Reg_status(uint8_t *RESPONSE)
     {
         if (strstr((char *)RESPONSE, NETWORK_RESPONSE[String_index].response) != NULL)
         {
+	    memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
             return NETWORK_RESPONSE[String_index].status;  // Return the matching status
+	   
         }
     }
-
+    memset(RX0_BUFFER,0,sizeof(RX0_BUFFER));
     return NETWORK_ERROR;  // Return NETWORK_ERROR if no match is found
 }

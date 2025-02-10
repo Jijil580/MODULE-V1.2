@@ -20,10 +20,10 @@
 /***********************************************************************************************************************
 * File Name    : r_cg_macrodriver.h
 * Version      : Code Generator for RL78/I1C V1.01.07.02 [08 Nov 2021]
-* Device(s)    : R5F10NLE
+* Device(s)    : R5F11TLG
 * Tool-Chain   : CCRL
 * Description  : This file implements general head file.
-* Creation Date: 17-01-2025
+* Creation Date: 31-01-2025
 ***********************************************************************************************************************/
 #ifndef MODULEID_H
 #define MODULEID_H
